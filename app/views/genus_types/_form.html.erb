@@ -1,0 +1,22 @@
+
+<% form_for @genus_type do |f| %>
+ <%= render "shared/error_message", :target => @genus_type %>
+
+  <div class="span-24 bird_field_row">
+    <%= f.label :name, :class => "span-4 bird_field_name" %>
+    <div class="span-19 last bird_field_data">
+        <%= f.text_field :name, :cols => 40 %>
+    </div>
+  </div>
+
+  <div class="span-24 bird_field_row">
+    <%= f.label :description, :class => "span-4 bird_field_name" %>
+    <div class="span-19 last bird_field_data">
+        <%= f.text_area :description, :cols=>60, :rows=>10 %>
+    </div>
+  </div>
+
+<%= f.submit "Save" %>
+
+
+<% end %>

@@ -1,0 +1,9 @@
+<p>
+  <%= link_to "Create a new Classification", new_genus_type_path %>
+</p>
+<% @genus_types.each do |gen| %>
+   <p>
+    <b><%= gen.name %></b> <%= link_to "edit", edit_genus_type_path(gen) %><br/>
+    <%= gen.description%>
+  </p>
+<% end %>

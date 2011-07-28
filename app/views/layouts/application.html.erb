@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Boi</title>
+
+  <link href='http://fonts.googleapis.com/css?family=Nothing+You+Could+Do&v2' rel='stylesheet' type='text/css'>
+
+
+  <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection">
+  <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print"> 
+  <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection">
+  <![endif]-->
+
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag "jquery", "rails"%>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+<div class="container">
+
+  <div class="span-24">
+    <div style="float:right;">
+      <% if current_user %>
+        logged in as <%= current_user.email %> | <%= link_to "logout", destroy_user_session_path, :method => :delete %>
+      <% else %>
+        <%= link_to('login', new_user_session_path)  %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="span-24" id="header">
+    <div class="span-3">
+      <%= link_to image_tag("dodo-small.png"), "/" %>
+    </div>
+
+    <div class="title span-21 last">
+      <%= link_to "BIRDS OF THE INTERNET", "/" %>
+    </div>
+    <div class="menu span-21 last">
+      <%= link_to "Classifications", genus_types_path %>
+      <%= link_to "Organization Styles", org_styles_path %>
+      <%= link_to "Habitats", habitats_path %>
+    </div>
+  </div>
+
+  <% unless flash[:notice].blank? %>
+    <div class="span-24 notice">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <% unless flash[:error].blank? %>
+    <div class="span-24 error">
+      <%= flash[:error] %>
+    </div>
+  <% end %>
+
+  <% unless alert.blank? %>
+    <div class="span-24 notice">
+      <%= alert %>
+    </div>
+  <% end %>
+
+
+  <div class="span-24 prepend-top">
+
+    <%= yield %>
+
+  </div>
+
+</div>
+</body>
+</html>

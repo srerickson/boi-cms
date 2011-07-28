@@ -1,0 +1,8 @@
+<div class="span-24 append-bottom">
+  <div class="bird_title"><%= @genus_type.name %></div>
+
+  <%= link_to "delete this classification", genus_type_path(@genus_type), :method => "delete", :confirm => "Are you sure you want to delete the class? This cannot be un-done.", :style=>"float:right;"%>
+</div>
+
+
+<%= render :partial => "form" %>

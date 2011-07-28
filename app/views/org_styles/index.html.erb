@@ -1,0 +1,9 @@
+<p>
+  <%= link_to "Create a new Organization Style", new_org_style_path %>
+</p>
+<% @org_styles.each do |org| %>
+   <p>
+    <b><%= org.name %></b> <%= link_to "edit", edit_org_style_path(org) %><br/>
+    <%= org.description%>
+  </p>
+<% end %>

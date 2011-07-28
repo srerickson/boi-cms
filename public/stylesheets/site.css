@@ -1,0 +1,72 @@
+
+
+
+#header {
+  font-family: 'Nothing You Could Do', cursive;
+}
+
+#header .title {
+  font-size:32px;
+  margin-top:10px;
+}
+
+#header .title a {
+  color: #000;
+  text-decoration:none;
+}
+
+#header .menu a {
+  font-size:18px;
+  margin-right:15px;
+  text-decoration:none;
+}
+
+
+.bird_field_row {
+  margin-bottom:8px; 
+}
+
+.bird_field_name {
+  background-color:#EEE;
+  font-weight:bold;
+}
+
+.bird_column_header {
+  background-color:#AAA;
+  font-weight:bold;
+}
+
+.bird_title {
+  display:inline;
+  font-size:2em;
+  margin-right:20px;
+}
+
+.edit_button {
+  float:left;
+  width:30px;
+  height:15px;
+  background-color:#F6B26B;
+  color:#000;
+  border:3px solid #F9CB9C; 
+}
+
+.even_row {
+  background-color: #EEE;
+}
+
+.odd_row {
+  background-color: #FFF;
+}
+
+
+textarea {
+  width:400px;
+  height:150px;
+  margin:0px;
+}
+
+input[type="text"] {
+  width:400px;
+  margin:0px;
+}

@@ -1,0 +1,8 @@
+.bundle
+log/*.log
+.DS_Store
+tmp/**/*
+public/static/*
+public/.htaccess
+config/database.yml
+*.swp

@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  habitats: MyText
+  genus_types: MyText
+  ids: MyText
+  text_search: MyText
+  fse_org_styles: MyText
+  op_org_styles: MyText
+
+two:
+  habitats: MyText
+  genus_types: MyText
+  ids: MyText
+  text_search: MyText
+  fse_org_styles: MyText
+  op_org_styles: MyText

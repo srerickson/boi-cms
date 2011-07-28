@@ -1,0 +1,8 @@
+<div class="span-24 append-bottom">
+  <div class="bird_title"><%= @habitat.name %></div>
+
+  <%= link_to "delete this habitat", habitat_path(@habitat), :method => "delete", :confirm => "Are you sure you want to delete the habitat? This cannot be un-done.", :style=>"float:right;"%>
+</div>
+
+
+<%= render :partial => "form" %>

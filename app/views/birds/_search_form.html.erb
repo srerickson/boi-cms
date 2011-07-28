@@ -1,0 +1,11 @@
+<%= form_tag(search_birds_path) %>
+
+  Birds of Class:   <%= select_tag "search[genus_type_id][]", options_from_collection_for_select(GenusType.order("name ASC"),"id","name"), :include_blank => true%>
+  Birds of Habitat: <%= select_tag "search[habitat_id]", options_from_collection_for_select(Habitat.order("name ASC"), "id","name"), :include_blank => true%>
+
+  <p>
+    Order By: <%= select_tag "search[order_by]", raw(default_bird_fields_order().map{ |f| "<option>#{f}</option>"}.join("")), :include_blank => true%>
+  </p>
+
+
+<%= submit_tag "Update Results"%>

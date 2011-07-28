@@ -1,0 +1,9 @@
+<p>
+  <%= link_to "Create a new Habitat", new_habitat_path %>
+</p>
+<% @habitats.each do |hab| %>
+   <p>
+    <b><%= hab.name %></b> <%= link_to "edit", edit_habitat_path(hab) %><br/>
+    <%= hab.description%>
+  </p>
+<% end %>
