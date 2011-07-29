@@ -23,6 +23,8 @@ role :db,  "thatwhich.net", :primary => true # This is where Rails migrations wi
 
 after "deploy", "deploy:bundle_gems"
 after "deploy:bundle_gems", "deploy:restart"
+before "deploy:update_code", "deploy:stop_thinking_sphinx"
+after  "deploy:update_code", "deploy:start_thinking_sphinx"
 
 
 # If you are using Passenger mod_rails uncomment this:
@@ -38,17 +40,15 @@ namespace :deploy do
   end
 
   task :symlink_sphinx_indexes, :roles => [:app] do
-    run "ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx"
+    #run "ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx"
   end
 
-  task :before_update_code, :roles => [:app] do
-    thinking_sphinx.stop
+  task :stop_thinking_sphinx, :roles => [:app] do
+    run "cd #{deploy_to}/current && rake ts:stop"
   end
 
-  task :after_update_code, :roles => [:app] do
-    symlink_sphinx_indexes
-    thinking_sphinx.configure
-    thinking_sphinx.start
+  task :start_thinking_sphinx, :roles => [:app] do
+    run "cd #{deploy_to}/current && rake ts:rebuild"
   end
 
 end
