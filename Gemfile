@@ -9,7 +9,7 @@ gem 'mysql2'
 gem 'devise'
 gem 'thinking-sphinx'
 gem 'jquery-rails', '>= 1.0.12'
-
+gem 'capistrano'
 
 # Use unicorn as the web server
 # gem 'unicorn'

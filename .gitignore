@@ -6,4 +6,4 @@ public/static/*
 public/.htaccess
 config/database.yml
 *.swp
-.bundle
+vendor/
