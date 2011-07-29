@@ -4,6 +4,5 @@ log/*.log
 tmp/**/*
 public/static/*
 public/.htaccess
-config/database.yml
 *.swp
 vendor/gems
