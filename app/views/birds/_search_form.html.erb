@@ -1,7 +1,7 @@
-<div class="search_form append-bottom">
-<%= form_tag search_birds_path, :method=>"get" %>
+<div class="search_form_div append-bottom">
+<%= form_tag search_birds_path, :method=>"get", :remote => true, :'data-type' => 'html', :id => 'search_form'%>
 
-  Search <%= text_field_tag "query[text_search][all]", @query.text_search['all']  %> <%= submit_tag "Search"%>
+  Search <%= text_field_tag "query[text_search][all]", @query.text_search['all'], :class=>"live_search" %> <%= submit_tag "Search"%>
 
   <div>
     <!--
@@ -12,7 +12,7 @@
       <div class="span-6">
         Classifications<br/>
         <% GenusType.all.each do |g|  %>
-          <%= check_box_tag "query[genus_types][#{g.id}]",'1', (@query.genus_types[g.id.to_s] == "1") %>
+          <%= check_box_tag "query[genus_types][#{g.id}]",'1', (@query.genus_types[g.id.to_s] == "1"), :class=>"submittable" %>
           <%= truncate(g.name) %><br/> 
         <% end%>
       </div>
@@ -21,14 +21,17 @@
       <div class="span-6">
         Habitats<br/>
         <% Habitat.all.each do |h|  %>
-          <%= check_box_tag "query[habitats][#{h.id}]",'1', (@query.habitats[h.id.to_s] == "1") %>
+          <%= check_box_tag "query[habitats][#{h.id}]",'1', (@query.habitats[h.id.to_s] == "1"), :class=>"submittable" %>
           <%= truncate(h.name) %><br/> 
         <% end%>
       </div>
 
 
-
-      Order By: <%= select_tag "query[order_by]", raw(Bird.search_sort_options)%>
+      Order By: <%= select_tag "query[order_by]", raw(Bird.search_sort_options), :class=>"submittable"%>
     </div>
   </div>
 </div>
+
+</script>
+
+</form>

@@ -1,5 +1,7 @@
 
-
+body {
+  overflow-y: scroll;
+}
 
 #header {
   font-family: 'Nothing You Could Do', cursive;

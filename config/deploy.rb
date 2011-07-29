@@ -1,3 +1,6 @@
+require 'thinking_sphinx/deploy/capistrano'
+
+
 set :application, "boi-cms"
 set :repository,  "git://github.com/srerickson/boi-cms.git"
 set :deploy_to, "/var/www/#{application}"
@@ -25,6 +28,7 @@ after "deploy:bundle_gems", "deploy:restart"
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
   task :bundle_gems do 
+    run "ln -s #{deploy_to}/shared/vendor/gems #{deploy_to}/current/vendor/gems"
     run "cd #{deploy_to}/current && bundle install vendor/gems"
   end
   task :start do ; end
@@ -32,4 +36,19 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
+
+  task :symlink_sphinx_indexes, :roles => [:app] do
+    run "ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx"
+  end
+
+  task :before_update_code, :roles => [:app] do
+    thinking_sphinx.stop
+  end
+
+  task :after_update_code, :roles => [:app] do
+    symlink_sphinx_indexes
+    thinking_sphinx.configure
+    thinking_sphinx.start
+  end
+
 end

@@ -6,3 +6,4 @@ public/static/*
 public/.htaccess
 *.swp
 vendor/gems
+db/sphinx

@@ -36,7 +36,13 @@ class BirdsController < ApplicationController
     @query.setup_dicts()
     @birds = @query.results
     respond_with(@birds) do |format|
-      format.html { render "index" }
+      format.html do
+        if request.xhr?
+          render :partial => "birds_list", :object => @birds
+        else
+          render "index"
+        end
+      end
     end
   end
 
