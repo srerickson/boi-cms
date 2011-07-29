@@ -4,8 +4,10 @@
   Search <%= text_field_tag "query[text_search][all]", @query.text_search['all']  %> <%= submit_tag "Search"%>
 
   <div>
+    <!--
     <a href="#" onclick='$("div.search").toggle();return false;'>Advanced Search/Filter Options</a>
-    <div class="span-24 append-bottom search" style="<%= @query.nil? ? 'display:none' : ''%>">
+    -->
+    <div class="span-24 append-bottom prepend-top search" style="<%= @query.nil? ? 'display:none' : ''%>">
 
       <div class="span-6">
         Classifications<br/>
