@@ -4,6 +4,8 @@ class BirdsController < ApplicationController
   def index
 
     @birds = nil
+    @query = Query.new()
+    @query.setup_dicts()
 
     unless params[:selection].nil?
       ids = params[:selection].split(",").map{|s| s.to_i }
@@ -30,7 +32,12 @@ class BirdsController < ApplicationController
   end
 
   def search
-    redirect_to( birds_url(:search => params[:search]))    
+    @query = Query.new(params[:query])
+    @query.setup_dicts()
+    @birds = @query.results
+    respond_with(@birds) do |format|
+      format.html { render "index" }
+    end
   end
 
   def show

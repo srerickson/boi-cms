@@ -7,7 +7,7 @@ class CreateQueries < ActiveRecord::Migration
       t.text :text_search
       t.text :fse_org_styles
       t.text :op_org_styles
-
+      t.string :order_by
       t.timestamps
     end
   end

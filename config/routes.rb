@@ -2,7 +2,7 @@ Boi::Application.routes.draw do
 
   devise_for :users
   resources :birds do
-    post 'search', :on => :collection
+    get 'search', :on => :collection
   end
   resources :org_styles
   resources :genus_types

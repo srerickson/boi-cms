@@ -70,3 +70,17 @@ input[type="text"] {
   width:400px;
   margin:0px;
 }
+
+.search_form {
+}
+
+.search_form input[type="text"] {
+  width:200px;
+}
+
+.search_form a {
+  font-size:0.9em;
+}
+
+
+

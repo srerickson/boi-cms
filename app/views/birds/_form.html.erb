@@ -1,10 +1,10 @@
 
 <% form_for @bird do |f| %>
  <%= render "shared/error_message", :target => @bird %>
-<% default_bird_fields_order.each do |field|%>
+<% Bird.default_bird_fields_order.each do |field|%>
 
   <div class="span-24 bird_field_row">
-    <%= f.label field, default_bird_field_names[field][1], :class => "span-4 bird_field_name" %>
+    <%= f.label field, Bird.default_bird_field_names[field][1], :class => "span-4 bird_field_name" %>
     <div class="span-19 last bird_field_data">
       <% if field == "name" or field == "url" %>
         <%= f.text_field field, :cols => 40 %>

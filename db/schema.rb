@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(:version => 20110723192405) do
     t.text     "text_search"
     t.text     "fse_org_styles"
     t.text     "op_org_styles"
+    t.string   "order_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

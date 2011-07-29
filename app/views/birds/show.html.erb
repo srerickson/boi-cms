@@ -5,10 +5,10 @@
 
 
 
-<% default_bird_fields_order.each do |field|%>
+<% Bird.default_bird_fields_order.each do |field|%>
 
   <div class="span-24 bird_field_row">
-    <div class="span-4 bird_field_name"><%= default_bird_field_names[field][1]%></div>
+    <div class="span-4 bird_field_name"><%= Bird.default_bird_field_names[field][1]%></div>
     <div class="span-19 last bird_field_data">
 
       <% if field == "genus_type_id" %>

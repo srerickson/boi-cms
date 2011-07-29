@@ -1,11 +1,32 @@
-<%= form_tag(search_birds_path) %>
+<div class="search_form append-bottom">
+<%= form_tag search_birds_path, :method=>"get" %>
 
-  Birds of Class:   <%= select_tag "search[genus_type_id][]", options_from_collection_for_select(GenusType.order("name ASC"),"id","name"), :include_blank => true%>
-  Birds of Habitat: <%= select_tag "search[habitat_id]", options_from_collection_for_select(Habitat.order("name ASC"), "id","name"), :include_blank => true%>
+  Search <%= text_field_tag "query[text_search][all]", @query.text_search['all']  %> <%= submit_tag "Search"%>
 
-  <p>
-    Order By: <%= select_tag "search[order_by]", raw(default_bird_fields_order().map{ |f| "<option>#{f}</option>"}.join("")), :include_blank => true%>
-  </p>
+  <div>
+    <a href="#" onclick='$("div.search").toggle();return false;'>Advanced Search/Filter Options</a>
+    <div class="span-24 append-bottom search" style="<%= @query.nil? ? 'display:none' : ''%>">
+
+      <div class="span-6">
+        Classifications<br/>
+        <% GenusType.all.each do |g|  %>
+          <%= check_box_tag "query[genus_types][#{g.id}]",'1', (@query.genus_types[g.id.to_s] == "1") %>
+          <%= truncate(g.name) %><br/> 
+        <% end%>
+      </div>
 
 
-<%= submit_tag "Update Results"%>
+      <div class="span-6">
+        Habitats<br/>
+        <% Habitat.all.each do |h|  %>
+          <%= check_box_tag "query[habitats][#{h.id}]",'1', (@query.habitats[h.id.to_s] == "1") %>
+          <%= truncate(h.name) %><br/> 
+        <% end%>
+      </div>
+
+
+
+      Order By: <%= select_tag "query[order_by]", raw(Bird.search_sort_options)%>
+    </div>
+  </div>
+</div>
