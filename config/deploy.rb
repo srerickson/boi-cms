@@ -21,10 +21,11 @@ role :db,  "thatwhich.net", :primary => true # This is where Rails migrations wi
 #role :db,  "your slave db-server here"
 
 
+before "deploy:update_code", "deploy:stop_thinking_sphinx"
+
 after "deploy", "deploy:bundle_gems"
 after "deploy:bundle_gems", "deploy:restart"
-before "deploy:update_code", "deploy:stop_thinking_sphinx"
-after  "deploy:update_code", "deploy:start_thinking_sphinx"
+after  "deploy:bundle_gems", "deploy:start_thinking_sphinx"
 
 
 # If you are using Passenger mod_rails uncomment this:
