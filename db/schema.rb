@@ -10,7 +10,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110723192405) do
+ActiveRecord::Schema.define(:version => 20110805205819) do
+
+  create_table "assets", :force => true do |t|
+    t.string   "asset_file_name"
+    t.string   "asset_content_type"
+    t.integer  "asset_file_size"
+    t.datetime "asset_updated_at"
+    t.integer  "attached_to_id"
+    t.string   "attached_to_type"
+    t.string   "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "birders", :force => true do |t|
     t.text     "author"

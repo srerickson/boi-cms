@@ -5,6 +5,23 @@ class Bird < ActiveRecord::Base
   belongs_to :fse_org_style, :class_name => "OrgStyle", :foreign_key => "fse_org_style_id"
   belongs_to :op_org_style, :class_name => "OrgStyle", :foreign_key => "op_org_style_id"
 
+  has_one :logo, 
+    :class_name => "Asset", 
+    :as => "attached_to", 
+    :conditions => {:role => "logo"},
+    :dependent => :destroy    
+
+  accepts_nested_attributes_for :logo, :allow_destroy => true
+
+  attr_accessor :uploaded_logo #upload to this attr for replacing logos
+  def uploaded_logo=(img)
+    logo.destroy unless logo.nil?
+    f = Asset.new(:asset => img, :attached_to => self, :role => "logo")
+    f.save
+  end
+  
+
+
   validates_presence_of :name
 
   define_index do 
@@ -59,6 +76,7 @@ class Bird < ActiveRecord::Base
     return [
       "name",
       "url",
+      "logo",
       "genus_type_id",
       "habitat_id",
       "foritself",
@@ -94,6 +112,7 @@ class Bird < ActiveRecord::Base
     vals = {
       "name" => ["Name","Project Name"],
       "url" => ["URL", "Project URL"],
+      "logo" => ["Logo","Project's Logo (.png, .jpg, .gif)"],
       "genus_type_id" => ["Classification", "Classification"],
       "habitat_id" => ["Habitat", "Habitat"],
       "foritself" => ["For Itself?", "Is the project in question aware of itself as an entity? Or is it identified by a second order observation of people, behavior?"],

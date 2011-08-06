@@ -1,0 +1,7 @@
+<% unless f.object.logo.nil? %>
+  <%= image_tag(f.object.logo.asset.url()) %>
+<% end %>
+<div>
+ upload a new logo or replace the existing one.:
+ <%= f.file_field :uploaded_logo %>
+</div>

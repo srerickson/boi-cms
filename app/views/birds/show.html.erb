@@ -12,13 +12,15 @@
     <div class="span-19 last bird_field_data">
 
       <% if field == "genus_type_id" %>
-         <%= @bird.genus_type.name unless @bird.genus_type.nil?  %>
+        <%= @bird.genus_type.name unless @bird.genus_type.nil?  %>
+      <% elsif field == "logo"%>
+        <%= image_tag(@bird.logo.asset.url) unless @bird.logo.nil? %>
       <% elsif field == "habitat_id"%>
-         <%= @bird.habitat.name unless @bird.habitat.nil?  %>
+        <%= @bird.habitat.name unless @bird.habitat.nil?  %>
       <% elsif field == "fse_org_style_id" %>
-         <%= @bird.fse_org_style.name unless @bird.fse_org_style.nil?  %>
+        <%= @bird.fse_org_style.name unless @bird.fse_org_style.nil?  %>
       <% elsif field == "op_org_style_id" %>
-         <%= @bird.op_org_style.name unless @bird.op_org_style.nil?  %>
+        <%= @bird.op_org_style.name unless @bird.op_org_style.nil?  %>
       <% else %>
         <%= @bird.attributes[field] %>
       <% end %>

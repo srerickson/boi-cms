@@ -10,6 +10,7 @@ gem 'devise'
 gem 'thinking-sphinx'
 gem 'jquery-rails', '>= 1.0.12'
 gem 'capistrano'
+gem 'paperclip'
 
 # Use unicorn as the web server
 # gem 'unicorn'
