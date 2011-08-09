@@ -28,7 +28,7 @@ body {
   margin-bottom:8px; 
 }
 
-.bird_field_name {
+.bird_field_name, .field_name, label {
   background-color:#EEE;
   font-weight:bold;
 }
@@ -82,6 +82,12 @@ input[type="text"] {
 
 .search_form a {
   font-size:0.9em;
+}
+
+ul.ui-sortable {
+  list-style-type:none;
+  margin: 0;
+  padding: 0;
 }
 
 

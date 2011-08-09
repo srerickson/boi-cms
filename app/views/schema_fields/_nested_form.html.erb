@@ -1,0 +1,37 @@
+<li class="ui-state-default">
+<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+
+
+<%= f.label :key, :class=>"span-3"%>
+  <%= f.text_field :key, :style=>"width:200px"%></br>
+
+
+<%= f.label :short_name, :class=>"span-3"%>
+  <%= f.text_field :short_name, :style=>"width:200px" %><br/>
+
+<%= f.label :description, :class=>"span-3" %>
+  <%= f.text_area :description, :style=>"width:200px;height:50px;padding:1px;" %><br/>
+
+<%= f.label :funcs, :class=>"span-3" %>
+  <%= f.text_area :funcs, :style=>"width:200px;height:100px;padding:1px;" %>
+
+
+  <% if f.object.new_record? %>
+      <%= f.hidden_field :position, :class => "field_position" %>
+  <% else %>
+    <%= f.hidden_field :position, :class => "field_position"%>
+  <% end %>
+
+
+  <% unless f.object.new_record? %>
+    <span class="inline_attr destroy">
+      Remove?
+      <%= f.check_box :_destroy %>
+    </span>
+  <% else %>
+    <%= link_to_remove_fields "remove", f %>
+  <% end %>
+
+
+
+</li>

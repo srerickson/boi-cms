@@ -62,16 +62,6 @@ class Bird < ActiveRecord::Base
     has updated_at
   end  
 
-
-  def self.search_sort_options
-    "<option value=''>Search Relevance</option>
-    <option value='name'>Name</option>
-    <option value='genus_type'>Classification</option>
-    <option value='habitat'>Habitat</option>
-    <option value='fse_org_style'>FSE Org. Style</option>
-    <option value='op_org_style'>OP Org. Style</option>"
-  end
-
   def self.default_bird_fields_order()
     return [
       "name",

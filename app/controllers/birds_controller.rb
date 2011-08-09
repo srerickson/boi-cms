@@ -1,28 +1,10 @@
 class BirdsController < ApplicationController
+  before_filter :get_schema
   respond_to :html, :json
 
   def index
-    @birds = nil
-    @query = Query.new()
-    @query.setup_dicts()
-    unless params[:selection].nil?
-      ids = params[:selection].split(",").map{|s| s.to_i }
-      @birds = Bird.where(:id => ids)
-    end
-    unless params[:search].nil? 
-      unless params[:search][:order_by].nil?
-        if Bird.column_names.include?(params[:search][:order_by])
-          if @birds.nil?
-            @birds = Bird.order(params[:search][:order_by]) 
-          else
-            @birds = @birds.order(params[:search][:order_by])
-          end
-        end
-      end
-    end
-    if @birds.nil?
-      @birds = Bird.order(:name)
-    end
+    @query = Query.default_query
+    @birds = @query.results  
     respond_with(@birds)
   end
 

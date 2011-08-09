@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110805205819) do
+ActiveRecord::Schema.define(:version => 20110808230334) do
 
   create_table "assets", :force => true do |t|
     t.string   "asset_file_name"
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(:version => 20110805205819) do
   end
 
   create_table "habitats", :force => true do |t|
-    t.text     "name",                            :null => false
-    t.text     "description", :limit => 16777215, :null => false
+    t.text     "name",                              :null => false
+    t.text     "description", :limit => 2147483647, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -103,6 +103,34 @@ ActiveRecord::Schema.define(:version => 20110805205819) do
     t.text     "fse_org_styles"
     t.text     "op_org_styles"
     t.string   "order_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.text     "view_fields"
+    t.text     "hide_fields"
+    t.integer  "pagination"
+    t.integer  "schema_id"
+  end
+
+  create_table "schema_fields", :force => true do |t|
+    t.integer  "schema_id"
+    t.string   "key"
+    t.string   "short_name"
+    t.text     "description"
+    t.text     "instructions"
+    t.string   "type"
+    t.integer  "position"
+    t.boolean  "default_view"
+    t.text     "render_value_func"
+    t.text     "render_form_func"
+    t.text     "funcs"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "schemas", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

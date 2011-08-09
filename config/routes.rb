@@ -7,6 +7,8 @@ Boi::Application.routes.draw do
   resources :org_styles
   resources :genus_types
   resources :habitats
+  resources :schemas
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

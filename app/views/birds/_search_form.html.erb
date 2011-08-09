@@ -1,7 +1,8 @@
 <div class="search_form_div append-bottom">
-<%= form_tag search_birds_path, :method=>"get", :remote => true, :'data-type' => 'html', :id => 'search_form'%>
+<%= form_tag search_birds_path, :method=>"get" , :id => 'search_form'%>
 
-  Search <%= text_field_tag "query[text_search][all]", @query.text_search['all'], :class=>"live_search" %> <%= submit_tag "Search"%>
+  Search<br/>
+  <%= text_field_tag "query[text_search][all]", @query.text_search['all']  %> <%= submit_tag "Search"%>
 
   <div>
     <!--
@@ -27,7 +28,7 @@
       </div>
 
 
-      Order By: <%= select_tag "query[order_by]", raw(Bird.search_sort_options), :class=>"submittable"%>
+      Order By: <%= select_tag "query[order_by]", raw(Query.search_sort_options(@query.order_by)), :class=>"submittable"%>
     </div>
   </div>
 </div>

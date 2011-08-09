@@ -1,26 +1,26 @@
 
 <% form_for @bird, :html => {:multipart => true} do |f| %>
  <%= render "shared/error_message", :target => @bird %>
-<% Bird.default_bird_fields_order.each do |field|%>
+<% @schema.schema_fields.each do |field|%>
 
   <div class="span-24 bird_field_row">
-    <%= f.label field, Bird.default_bird_field_names[field][1], :class => "span-4 bird_field_name" %>
+    <%= f.label field.key, field.short_name, :class => "span-4 bird_field_name" %>
     <div class="span-19 last bird_field_data">
 
-      <% if field == "logo" %>
+      <% if field.key == "logo" %>
         <%= render "logo_upload", :f => f%>
-      <% elsif field == "name" or field == "url" %>
-        <%= f.text_field field, :cols => 40 %>
-      <% elsif field == "genus_type_id" %>
+      <% elsif field.key == "name" or field.key == "url" %>
+        <%= f.text_field field.key, :cols => 40 %>
+      <% elsif field.key == "genus_type_id" %>
         <%= f.select :genus_type_id, GenusType.find(:all, :order => "name ASC").collect{|g|[g.name, g.id] }, :include_blank => true%>
-      <% elsif field == "habitat_id"%>
+      <% elsif field.key == "habitat_id"%>
         <%= f.select :habitat_id, Habitat.find(:all, :order => "name ASC").collect{|h|[h.name, h.id] }, :include_blank => true%>
-      <% elsif field == "fse_org_style_id" %>
+      <% elsif field.key == "fse_org_style_id" %>
         <%= f.select :fse_org_style_id, OrgStyle.find(:all, :order => "name ASC").collect{|h|[h.name, h.id] }, :include_blank => true%>
-      <% elsif field == "op_org_style_id" %>
+      <% elsif field.key == "op_org_style_id" %>
         <%= f.select :op_org_style_id, OrgStyle.find(:all, :order => "name ASC").collect{|h|[h.name, h.id] }, :include_blank => true%>
       <% else %>
-        <%= f.text_area field, :cols=>60, :rows=>10 %>
+        <%= f.text_area field.key, :cols=>60, :rows=>10 %>
       <% end %>
     </div>
   </div>

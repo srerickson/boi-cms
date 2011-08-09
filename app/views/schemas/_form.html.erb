@@ -1,0 +1,43 @@
+<% form_for @schema do |f | %>
+
+
+  <p>  
+  <%= f.label :name, :class=>"span-4" %>
+  <%= f.text_field :name %>
+  </p>
+  
+  <p>
+  <%= f.label :description, :class=>"span-4" %>
+  <%= f.text_area :description %>
+  </p>
+
+  <label class="span-4">Fields</label>
+  <div class="span-12">
+    <ul id="schema_fields" class="inputs">
+    <% f.fields_for :schema_fields do |sf| %>
+      <%= render "schema_fields/nested_form", :f => sf %>
+    <% end %>
+
+    </ul>
+    <%= link_to_add_fields 'Add a Field', f, :schema_fields %>
+  </div>  
+
+
+
+
+  <%= f.submit "Save" %>
+
+
+
+<% end %>
+
+<script>
+$(function() {
+    $( "#schema_fields" ).sortable({
+      update: function(e, ui){
+        update_list_positions("#schema_fields li")
+      }
+    });
+    $( "#schema_fields" ).disableSelection();
+  });
+</script>

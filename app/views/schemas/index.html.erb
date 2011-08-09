@@ -1,0 +1,7 @@
+Listing Schemas</br>
+
+<% @schemas.each do |schema|%>
+
+  <%= link_to schema.name, edit_schema_path(schema)%> <%= link_to "delete", schema, :method => :delete %><br/>
+
+<%end%>
