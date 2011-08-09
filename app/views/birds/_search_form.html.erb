@@ -1,14 +1,16 @@
-<div class="search_form_div append-bottom">
+<div class="search_form_div append-bottom span-24">
 <%= form_tag search_birds_path, :method=>"get" , :id => 'search_form'%>
 
+  <div class="span-12">
   Search<br/>
   <%= text_field_tag "query[text_search][all]", @query.text_search['all']  %> <%= submit_tag "Search"%>
+  </div>
 
-  <div>
-    <!--
-    <a href="#" onclick='$("div.search").toggle();return false;'>Advanced Search/Filter Options</a>
-    -->
-    <div class="span-24 append-bottom prepend-top search" style="<%= @query.nil? ? 'display:none' : ''%>">
+  <div class="span-3 last">
+    Order By: <%= select_tag "query[order_by]", raw(Query.search_sort_options(@query.order_by)), :class=>"submittable"%>
+  </div>
+
+  <div class="span-24 append-bottom prepend-top search" style="<%= @query.nil? ? 'display:none' : ''%>">
 
       <div class="span-6">
         Classifications<br/>
@@ -27,12 +29,42 @@
         <% end%>
       </div>
 
+      <div class="span-5">
+        Show Fields:<br/>
+        <%= hidden_field_tag 'query[view_fields_list]', @query.view_fields_list,  :class=>"submittable" %>
+        <ul id="query_view_fields" class="sortable">
+          <% @query.view_fields.each do |f_key |%>
+            <li data-field_name="<%= f_key %>"><span class="ui-icon ui-icon-arrow-4"></span><%= @query.schema.field_name_with_key(f_key)%></li>
+          <% end %>
+        </ul>
+      </div>
 
-      Order By: <%= select_tag "query[order_by]", raw(Query.search_sort_options(@query.order_by)), :class=>"submittable"%>
-    </div>
+      <div class="span-5">
+        Available Fields:<br/>
+        <ul id="query_hide_fields" class="sortable">
+          <% @query.hide_fields.each do |f_key |%>
+            <li data-field_name="<%= f_key %>"><span class="ui-icon ui-icon-arrow-4"></span><%= @query.schema.field_name_with_key(f_key)%></li>
+          <% end %>
+        </ul>
+      </div>
+  
   </div>
-</div>
-
-</script>
 
 </form>
+</div>
+
+<script >
+  $(function() {
+    $( "#query_view_fields, #query_hide_fields" ).sortable({
+      connectWith: ".sortable",
+      update: function(e, ui){
+        $("input#query_view_fields_list").attr("value","")
+        $("ul#query_view_fields li").each(function(){
+          hidden_fields_list =  $("input#query_view_fields_list")
+          val = hidden_fields_list.attr("value")
+          hidden_fields_list.attr("value", val +$(this).attr("data-field_name")+",")
+        }) 
+      }
+    }).disableSelection();
+  });
+</script>

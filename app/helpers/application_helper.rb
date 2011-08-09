@@ -17,4 +17,13 @@ module ApplicationHelper
   end
 
 
+  def sanitize_for_view(val)
+    if val.nil? or val == ""
+      return raw('&nbsp;')
+    else 
+      return val.to_s
+    end
+  end
+
+
 end

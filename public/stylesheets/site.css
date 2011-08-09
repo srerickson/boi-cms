@@ -90,5 +90,25 @@ ul.ui-sortable {
   padding: 0;
 }
 
+#search_form .sortable {
+  width:100%;
+  padding: 2px 0px;
+  font-size: 0.8em;
+}
+
+
+#search_form .sortable li {
+  padding:1px 1px 1px 15px;
+  margin:1px 0px;
+  background-color:#EEE;
+  cursor:move;
+}
+
+#search_form .sortable li span.ui-icon {
+  float:left;
+  margin-left:-15px;
+}
+
+
 
 

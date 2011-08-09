@@ -1,12 +1,12 @@
-<div class="span-24 append-bottom">
-  <div class="span-3 bird_column_header"><%= Bird.default_bird_field_names["name"][0] %></div>
-  <div class="span-1 bird_column_header"><%= Bird.default_bird_field_names["url"][0] %></div>
-  <div class="span-3 bird_column_header"><%= Bird.default_bird_field_names["genus_type_id"][0] %></div>
-  <div class="span-3 bird_column_header"><%= Bird.default_bird_field_names["habitat_id"][0] %></div>
-  <div class="span-3 bird_column_header"><%= Bird.default_bird_field_names["fse_name"][0] %></div>
-  <div class="span-3 bird_column_header"><%= Bird.default_bird_field_names["fse_org_style_id"][0] %></div>
-  <div class="span-3 bird_column_header"><%= Bird.default_bird_field_names["op_name"][0] %></div>
-  <div class="span-3 bird_column_header last"><%= Bird.default_bird_field_names["op_org_style_id"][0] %></div>
+<div class="span-24 append-bottom" style="width:2000px;">
+
+  <% @query.view_fields.each_with_index do |f_name, i|%>
+
+    <div class="span-3 bird_column_header <%= i+1 == @query.view_fields.size ? "last" : ""%>">
+      <%= @schema.field_name_with_key(f_name) %>
+    </div>
+
+  <% end %>
 </div>
 
 <% unless birds_list.empty? %>
@@ -14,14 +14,12 @@
   <% birds_list.each_with_index do |bird, i| %>
     <div class="span-24 bird_field_row <%= i.odd? ? "even_row" : "odd_row" %>">
 
-      <div class="span-3 bird_field_data"><%= link_to bird.name, bird_path(bird) %></div>
-      <div class="span-1 bird_field_data"><%= (bird.url.nil? or bird.url == "") ? "." : link_to("link", bird.url) %></div>
-      <div class="span-3 bird_field_data"><%= bird.genus_type.nil? ? "." : bird.genus_type.name %></div>
-      <div class="span-3 bird_field_data"><%= bird.habitat.nil? ? "." : bird.habitat.name %></div>
-      <div class="span-3 bird_field_data"><%= (bird.fse_name.nil? or bird.fse_name == "") ? "." : truncate(bird.fse_name) %></div>
-      <div class="span-3 bird_field_data"><%= bird.fse_org_style.nil? ? "." : truncate(bird.fse_org_style.name)  %></div>
-      <div class="span-3 bird_field_data"><%= (bird.op_name.nil? or bird.op_name == "") ? "." : truncate(bird.op_name) %></div>
-      <div class="span-3 bird_field_data last"><%= bird.op_org_style.nil? ? "." : truncate(bird.op_org_style.name) %></div>
+      <% @query.view_fields.each_with_index do |f_name, i|%>
+        <div class="span-3 bird_field_data <%= i+1 == @query.view_fields.size ? "last" : ""%>">
+          <%= truncate(sanitize_for_view(bird.value_of_key(f_name)))%>
+        </div>  
+      <%end%>  
+
 
     </div>
   <% end %>

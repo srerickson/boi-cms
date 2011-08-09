@@ -3,7 +3,13 @@ class BirdsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @query = Query.default_query
+    if params[:query]
+      @query = Query.new(params[:query])
+    elsif current_user.query
+      @query = current_user.query
+    else
+      @query = Query.new()
+    end
     @birds = @query.results  
     respond_with(@birds)
   end
@@ -11,7 +17,7 @@ class BirdsController < ApplicationController
 
   def search
     @query = Query.new(params[:query])
-    @query.setup_dicts()
+    #@query.hide_fields = @schema.schema_fields.map{|f| f.key }.delete_if{|f| @query.view_fields.include?(f)}
     @birds = @query.results
     respond_with(@birds) do |format|
       format.html do

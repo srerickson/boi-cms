@@ -1,5 +1,7 @@
 class Bird < ActiveRecord::Base
 
+  acts_as_schema_instance "bird"
+
   belongs_to :genus_type
   belongs_to :habitat
   belongs_to :fse_org_style, :class_name => "OrgStyle", :foreign_key => "fse_org_style_id"
