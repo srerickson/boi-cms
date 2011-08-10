@@ -73,6 +73,30 @@ input[type="text"] {
   margin:0px;
 }
 
+/* General JQuery Sortable */
+ul.ui-sortable {
+  list-style-type:none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.ui-sortable li {
+  padding-left:15px;
+}
+
+ul.ui-sortable li span.ui-icon-arrow-4 {
+  float:left;
+  margin-left:-15px;
+  cursor:move;
+}
+
+ul.ui-sortable .ui-state-highlight {
+  height: 1.5em; line-height: 1.2em;
+}
+
+
+/* Search Form */
+
 .search_form {
 }
 
@@ -84,15 +108,11 @@ input[type="text"] {
   font-size:0.9em;
 }
 
-ul.ui-sortable {
-  list-style-type:none;
-  margin: 0;
-  padding: 0;
-}
 
 #search_form .sortable {
   width:100%;
-  padding: 2px 0px;
+  padding: 4px 2px;
+  background-color:#DDD;
   font-size: 0.8em;
 }
 
@@ -100,13 +120,19 @@ ul.ui-sortable {
 #search_form .sortable li {
   padding:1px 1px 1px 15px;
   margin:1px 0px;
-  background-color:#EEE;
+  background-color:#FFF;
   cursor:move;
 }
 
-#search_form .sortable li span.ui-icon {
-  float:left;
-  margin-left:-15px;
+
+
+/* Edit Schema Styles*/
+form.edit_schema ul#schema_fields li label {
+  background-color:inherit;
+}
+
+form.edit_schema ul#schema_fields li a {
+  float:right;
 }
 
 

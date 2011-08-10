@@ -1,7 +1,7 @@
 
 <% form_for @bird, :html => {:multipart => true} do |f| %>
  <%= render "shared/error_message", :target => @bird %>
-<% @schema.schema_fields.each do |field|%>
+<% @bird_schema.schema_fields.each do |field|%>
 
   <div class="span-24 bird_field_row">
     <%= f.label field.key, field.short_name, :class => "span-4 bird_field_name" %>

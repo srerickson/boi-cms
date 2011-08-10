@@ -1,5 +1,4 @@
 class BirdsController < ApplicationController
-  before_filter :get_schema
   respond_to :html, :json
 
   def index

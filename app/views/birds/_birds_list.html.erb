@@ -3,7 +3,7 @@
   <% @query.view_fields.each_with_index do |f_name, i|%>
 
     <div class="span-3 bird_column_header <%= i+1 == @query.view_fields.size ? "last" : ""%>">
-      <%= @schema.field_name_with_key(f_name) %>
+      <%= @bird_schema.field_name_with_key(f_name) %>
     </div>
 
   <% end %>

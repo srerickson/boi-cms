@@ -63,7 +63,8 @@
           hidden_fields_list =  $("input#query_view_fields_list")
           val = hidden_fields_list.attr("value")
           hidden_fields_list.attr("value", val +$(this).attr("data-field_name")+",")
-        }) 
+        })
+        //$("input#query_view_fields_list").change()
       }
     }).disableSelection();
   });
