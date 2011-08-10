@@ -1,54 +1,70 @@
-<div class="search_form_div append-bottom span-24">
+<div class="search_form_div append-bottom span-24 last">
+
 <%= form_tag search_birds_path, :method=>"get" , :id => 'search_form'%>
 
-  <div class="span-12">
+  <div class="span-11 last">
   Search<br/>
   <%= text_field_tag "query[text_search][all]", @query.text_search['all']  %> <%= submit_tag "Search"%>
   </div>
 
+  <!--
   <div class="span-3 last">
-    Order By: <%= select_tag "query[order_by]", raw(Query.search_sort_options(@query.order_by)), :class=>"submittable"%>
+    Order By: <%= select_tag "query[order_by]", raw(Query.search_sort_options(@query.order_by)), :class=>"submittable-OFF"%>
   </div>
+  -->
 
-  <div class="span-24 append-bottom prepend-top search" style="<%= @query.nil? ? 'display:none' : ''%>">
+  <div class="span-24 last">
+    <a href="#" onclick="$('#search_filter_options').toggle(200);return false;">
+      Filters Options
+    </a> (<%= @query.filter_options_count %>) &nbsp;&nbsp;
 
-      <div class="span-6">
+    <a href="#" onclick="$('#search_view_options').toggle(200);return false;">
+      View Options
+    </a>
+  </div>
+ 
+  <div class="span-24 last prepend-top">
+
+    <div class="span-11 append-bottom hide" style="display:none" id="search_filter_options">
+      <div class="span-5">
         Classifications<br/>
         <% GenusType.all.each do |g|  %>
-          <%= check_box_tag "query[genus_types][#{g.id}]",'1', (@query.genus_types[g.id.to_s] == "1"), :class=>"submittable" %>
+          <%= check_box_tag "query[genus_types][#{g.id}]",'1', (@query.genus_types[g.id.to_s] == "1"), :class=>"submittable-OFF" %>
           <%= truncate(g.name) %><br/> 
         <% end%>
       </div>
-
-
-      <div class="span-6">
+      <div class="span-6 last">
         Habitats<br/>
         <% Habitat.all.each do |h|  %>
-          <%= check_box_tag "query[habitats][#{h.id}]",'1', (@query.habitats[h.id.to_s] == "1"), :class=>"submittable" %>
+          <%= check_box_tag "query[habitats][#{h.id}]",'1', (@query.habitats[h.id.to_s] == "1"), :class=>"submittable-OFF" %>
           <%= truncate(h.name) %><br/> 
         <% end%>
       </div>
+    </div>
 
+    <div class="span-11 last append-bottom hide" style="display:none" id="search_view_options">
       <div class="span-5">
         Show Fields:<br/>
-        <%= hidden_field_tag 'query[view_fields_list]', @query.view_fields_list,  :class=>"submittable" %>
+        <%= hidden_field_tag 'query[view_fields_list]', @query.view_fields_list,  :class=>"submittable-OFF" %>
         <ul id="query_view_fields" class="sortable">
           <% @query.view_fields.each do |f_key |%>
             <li data-field_name="<%= f_key %>"><span class="ui-icon ui-icon-arrow-4"></span><%= @query.schema.field_name_with_key(f_key)%></li>
           <% end %>
         </ul>
       </div>
-
-      <div class="span-5">
-        Available Fields:<br/>
-        <ul id="query_hide_fields" class="sortable">
+      <div class="span-5 last">
+        Hidden/Available Fields:<br/>
+        <ul id="query_hide_fields" class="sortable" style="overflow-y:scroll;height:150px;">
           <% @query.hide_fields.each do |f_key |%>
             <li data-field_name="<%= f_key %>"><span class="ui-icon ui-icon-arrow-4"></span><%= @query.schema.field_name_with_key(f_key)%></li>
           <% end %>
         </ul>
       </div>
-  
+    </div>
+
+
   </div>
+
 
 </form>
 </div>

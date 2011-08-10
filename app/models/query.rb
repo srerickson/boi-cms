@@ -81,6 +81,10 @@ class Query < ActiveRecord::Base
     return res
   end
 
+  def filter_options_count
+    self.genus_types.keys.size + self.habitats.keys.size + self.fse_org_styles.keys.size + self.op_org_styles.keys.size
+  end
+
   def self.search_sort_options(selected)
     "<option value='' #{ selected == nil ? "selected='yes'" : ""}>Search Relevance</option>
     <option value='name' #{ selected == 'name' ? "selected='yes'" : ""}>Name</option>
