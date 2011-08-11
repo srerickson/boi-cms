@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110808230334) do
+ActiveRecord::Schema.define(:version => 20110811221843) do
 
   create_table "assets", :force => true do |t|
     t.string   "asset_file_name"
@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(:version => 20110808230334) do
     t.text     "funcs"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "render_list_value_func"
   end
 
   create_table "schemas", :force => true do |t|

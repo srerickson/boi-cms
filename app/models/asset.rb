@@ -1,4 +1,4 @@
 class Asset < ActiveRecord::Base
   belongs_to :attached_to, :polymorphic => true
-  has_attached_file :asset, :styles => { :large => "640x480", :medium => "300x300>", :thumb => "100x100>" }
+  has_attached_file :asset, :styles => { :sq600 => "600x600", :sq300 => "300x300>", :sq100 => "100x100>", :sq50 => "50x50>" }
 end

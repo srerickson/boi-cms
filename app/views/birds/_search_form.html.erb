@@ -15,7 +15,7 @@
 
   <div class="span-24 last">
     <a href="#" onclick="$('#search_filter_options').toggle(200);return false;">
-      Filters Options
+      Filters
     </a> (<%= @query.filter_options_count %>) &nbsp;&nbsp;
 
     <a href="#" onclick="$('#search_view_options').toggle(200);return false;">
@@ -25,26 +25,26 @@
  
   <div class="span-24 last prepend-top">
 
-    <div class="span-11 append-bottom hide" style="display:none" id="search_filter_options">
-      <div class="span-5">
-        Classifications<br/>
+    <div class="span-8 append-bottom hide ui-state-default" style="display:none" id="search_filter_options">
+      <div class="span-4">
+        <strong>Classifications</strong><br/>
         <% GenusType.all.each do |g|  %>
-          <%= check_box_tag "query[genus_types][#{g.id}]",'1', (@query.genus_types[g.id.to_s] == "1"), :class=>"submittable-OFF" %>
-          <%= truncate(g.name) %><br/> 
+          <%= check_box_tag "query[genus_types][#{g.id}]",'1', (@query.genus_types[g.id.to_s] == "1"), :class=>"submittable-OFF", :title=>g.name %>
+          <%= truncate(g.name, :length=>18) %><br/> 
         <% end%>
       </div>
-      <div class="span-6 last">
-        Habitats<br/>
+      <div class="span-4 last">
+        <strong>Habitats</strong><br/>
         <% Habitat.all.each do |h|  %>
-          <%= check_box_tag "query[habitats][#{h.id}]",'1', (@query.habitats[h.id.to_s] == "1"), :class=>"submittable-OFF" %>
-          <%= truncate(h.name) %><br/> 
+          <%= check_box_tag "query[habitats][#{h.id}]",'1', (@query.habitats[h.id.to_s] == "1"), :class=>"submittable-OFF", :title=>h.name %>
+          <%= truncate(h.name, :length=>18) %><br/> 
         <% end%>
       </div>
     </div>
 
-    <div class="span-11 last append-bottom hide" style="display:none" id="search_view_options">
-      <div class="span-5">
-        Show Fields:<br/>
+    <div class="span-9 last append-bottom hide ui-state-default" style="display:none" id="search_view_options">
+      <div class="span-4">
+        <strong>Show Fields</strong><br/>
         <%= hidden_field_tag 'query[view_fields_list]', @query.view_fields_list,  :class=>"submittable-OFF" %>
         <ul id="query_view_fields" class="sortable">
           <% @query.view_fields.each do |f_key |%>
@@ -52,8 +52,8 @@
           <% end %>
         </ul>
       </div>
-      <div class="span-5 last">
-        Hidden/Available Fields:<br/>
+      <div class="span-4 last">
+         <strong>Hidden/Available Fields</strong><br/>
         <ul id="query_hide_fields" class="sortable" style="overflow-y:scroll;height:150px;">
           <% @query.hide_fields.each do |f_key |%>
             <li data-field_name="<%= f_key %>"><span class="ui-icon ui-icon-arrow-4"></span><%= @query.schema.field_name_with_key(f_key)%></li>
@@ -73,6 +73,7 @@
   $(function() {
     $( "#query_view_fields, #query_hide_fields" ).sortable({
       connectWith: ".sortable",
+      placeholder: "ui-state-highlight",
       update: function(e, ui){
         $("input#query_view_fields_list").attr("value","")
         $("ul#query_view_fields li").each(function(){

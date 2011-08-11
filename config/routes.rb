@@ -3,6 +3,7 @@ Boi::Application.routes.draw do
   devise_for :users
   resources :birds do
     get 'search', :on => :collection
+    get 'flexi', :on => :collection
   end
   resources :org_styles
   resources :genus_types

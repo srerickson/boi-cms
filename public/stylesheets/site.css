@@ -23,27 +23,6 @@ body {
   text-decoration:none;
 }
 
-
-.bird_field_row {
-  margin-bottom:8px; 
-}
-
-.bird_field_name, .field_name, label {
-  background-color:#EEE;
-  font-weight:bold;
-}
-
-.bird_column_header {
-  background-color:#AAA;
-  font-weight:bold;
-}
-
-.bird_title {
-  display:inline;
-  font-size:2em;
-  margin-right:20px;
-}
-
 .edit_button {
   float:left;
   width:30px;
@@ -53,14 +32,51 @@ body {
   border:3px solid #F9CB9C; 
 }
 
-.even_row {
-  background-color: #EEE;
+
+/* Birds List Table */
+#birds_table tr.mouseover, #birds_table td.mouseover {
+  background-color:#CCC;
+  cursor:pointer;
 }
 
-.odd_row {
-  background-color: #FFF;
+#birds_table td, th{
+  border-top:1px solid Lightgray;
+  border-right:1px solid Lightgray;
 }
 
+table#birds_table {
+  border-left:1px solid Lightgray;
+  border-bottom:1px solid Lightgray;
+
+}
+
+/* Single Bird Report Page*/
+
+.bird_row {
+  margin-bottom: 5px;
+}
+
+.bird_field_name {
+  background-color:#EEE;
+  padding: 2px 12px 2px 2px;
+  color:#555;
+}
+
+.bird_field_name a {
+  margin-right:-12px;
+}
+
+.bird_field_description {
+  font-size:0.8em;
+  margin-top:2px;
+}
+
+
+
+label {
+  background-color:#EEE;
+  font-weight:bold;
+}
 
 textarea {
   width:400px;
@@ -112,7 +128,6 @@ ul.ui-sortable .ui-state-highlight {
 #search_form .sortable {
   width:100%;
   padding: 4px 2px;
-  background-color:#DDD;
   font-size: 0.8em;
 }
 

@@ -7,11 +7,19 @@
 
 <% @bird_schema.schema_fields.each do |field|%>
 
-  <div class="span-24 bird_field_row">
-    <div class="span-4 bird_field_name"><%= field.description %></div>
-    <div class="span-19 last bird_field_data">
+  <div class="span-24 bird_row">
+    <div class="span-4 bird_field_name ui-state-default">
+      <%= field.short_name %>
+      <% if field.short_name != field.description %>
+        <a href="#" onclick="$(this).next().toggle(200);return false;" style="float:right" ><span class="ui-icon ui-icon-triangle-1-s"></a>
+        <div class="bird_field_description hidden" style="display:none">
+          <%= field.description %>
+        </div>
+      <% end %>
+    </div>
+    <div class="span-19 bird_field_value last">
 
-        <%= render :inline => field.render_value(@bird), :locals => {:obj => @bird}  %>
+        <%= render :inline => @bird.value_of_key(field.key), :locals => {:obj => @bird}  %>
 
     </div>
   </div>

@@ -31,7 +31,7 @@ class SchemasController < ApplicationController
     @schema = Schema.find(params[:id])
     if @schema.update_attributes(params[:schema])
       flash[:notice] = "Updated Schema!"
-      respond_with(@schema)
+      respond_with(@schema, :location => edit_schema_url(@schema) )
     else
       respond_with(@schema)
     end

@@ -23,12 +23,23 @@ module SchemaInstance
   module InstanceMethods
     def value_of_key(key)
       sf = self.class.schema.schema_fields.where(:key=>key).first
-      unless sf.render_value_func.nil? or sf.render_value_func = ""
+      unless sf.render_value_func.blank?
         return sf.render_value_func
       else
         return self.attributes[key]
       end
     end
+
+    def list_value_of_key(key)
+      sf = self.class.schema.schema_fields.where(:key=>key).first
+      unless sf.render_list_value_func.blank?
+        return sf.render_list_value_func
+      else
+        return self.value_of_key(key)
+      end      
+    end
+
+
   end
 
 end
