@@ -23,19 +23,19 @@ body {
   text-decoration:none;
 }
 
-.edit_button {
+.bird_button {
+  padding: 3px 3px 3px 15px;
+}
+
+.bird_butonn .ui-icon {
   float:left;
-  width:30px;
-  height:15px;
-  background-color:#F6B26B;
-  color:#000;
-  border:3px solid #F9CB9C; 
+  margin-left:-17px;
 }
 
 
 /* Birds List Table */
 #birds_table tr.mouseover, #birds_table td.mouseover {
-  background-color:#CCC;
+  background-color:#E6E6E6;
   cursor:pointer;
 }
 
@@ -52,16 +52,23 @@ table#birds_table {
 
 /* Single Bird Report Page*/
 
-.bird_row {
-  margin-bottom: 5px;
+.bird_title {
+  font-size:2em;
 }
 
+.bird_row {
+  margin-bottom: 10px;
+}
+
+label,
 .bird_field_name {
+  font-weight: normal;
   background-color:#EEE;
   padding: 2px 12px 2px 2px;
   color:#555;
 }
 
+label a, 
 .bird_field_name a {
   margin-right:-12px;
 }
@@ -69,13 +76,6 @@ table#birds_table {
 .bird_field_description {
   font-size:0.8em;
   margin-top:2px;
-}
-
-
-
-label {
-  background-color:#EEE;
-  font-weight:bold;
 }
 
 textarea {
@@ -90,6 +90,7 @@ input[type="text"] {
 }
 
 /* General JQuery Sortable */
+
 ul.ui-sortable {
   list-style-type:none;
   margin: 0;
@@ -109,7 +110,6 @@ ul.ui-sortable li span.ui-icon-arrow-4 {
 ul.ui-sortable .ui-state-highlight {
   height: 1.5em; line-height: 1.2em;
 }
-
 
 /* Search Form */
 
@@ -139,9 +139,13 @@ ul.ui-sortable .ui-state-highlight {
   cursor:move;
 }
 
-
-
 /* Edit Schema Styles*/
+
+form.edit_schema ul#schema_fields li {
+  border-bottom: none;
+}
+
+
 form.edit_schema ul#schema_fields li label {
   background-color:inherit;
 }

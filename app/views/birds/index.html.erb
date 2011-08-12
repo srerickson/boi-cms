@@ -3,7 +3,9 @@
 
 
 <div class="span-24">
-  <%= link_to "Create A New Bird", new_bird_path, :style=>"float:right"%>
+  <a class="ui-state-default ui-button ui-widget ui-corner-all bird_button" style="float:right" href="<%= new_bird_path %>">
+    <span class='ui-icon ui-icon-plus' style='float:left;margin-left:-15px;'></span> Create a Bird
+  </a>
 </div>
 
 <div id="search_results">

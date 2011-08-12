@@ -18,5 +18,8 @@ class SchemaField < ActiveRecord::Base
     return obj.attributes[key].nil? ? "" : obj.attributes[key].to_s;
   end
 
+  def self.form_type_options
+    return ["String","Text","Other"]
+  end
 
 end

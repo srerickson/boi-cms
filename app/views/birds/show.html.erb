@@ -1,21 +1,24 @@
 <div class="span-24 append-bottom">  
-<div class="bird_title"><%= @bird.name %></div>
-<%= link_to "Edit this bird", edit_bird_path(@bird), :style => "float:right;" %>
+  <div class="bird_title"><%= @bird.name %></div>
+  <a class="ui-state-default ui-button ui-widget ui-corner-all bird_button" style="float:right" href="<%= edit_bird_path(@bird)%>">
+    <span class='ui-icon ui-icon-pencil' style='float:left;margin-left:-15px;'></span> Edit this bird</a>
 </div>
 
 
 
 <% @bird_schema.schema_fields.each do |field|%>
 
-  <div class="span-24 bird_row">
-    <div class="span-4 bird_field_name ui-state-default">
-      <%= field.short_name %>
-      <% if field.short_name != field.description %>
-        <a href="#" onclick="$(this).next().toggle(200);return false;" style="float:right" ><span class="ui-icon ui-icon-triangle-1-s"></a>
-        <div class="bird_field_description hidden" style="display:none">
-          <%= field.description %>
-        </div>
-      <% end %>
+  <div class="bird_row span-24">
+    <div class="span-4">
+      <div class="bird_field_name ui-state-default">
+        <%= field.short_name %>
+        <% if field.short_name != field.description %>
+          <a href="#" onclick="$(this).next().toggle(200);return false;" style="float:right" ><span class="ui-icon ui-icon-triangle-1-s"></a>
+          <div class="bird_field_description hidden" style="display:none">
+            <%= field.description %>
+          </div>
+        <% end %>
+      </div>
     </div>
     <div class="span-19 bird_field_value last">
 

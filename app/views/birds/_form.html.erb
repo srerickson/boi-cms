@@ -3,27 +3,32 @@
  <%= render "shared/error_message", :target => @bird %>
 <% @bird_schema.schema_fields.each do |field|%>
 
-  <div class="span-24 bird_field_row">
-    <%= f.label field.key, field.short_name, :class => "span-4" %>
-    <div class="span-19 last bird_field_data">
 
-      <% if field.key == "logo" %>
-        <%= render "logo_upload", :f => f%>
-      <% elsif field.key == "name" or field.key == "url" %>
-        <%= f.text_field field.key, :cols => 40 %>
-      <% elsif field.key == "genus_type_id" %>
-        <%= f.select :genus_type_id, GenusType.find(:all, :order => "name ASC").collect{|g|[g.name, g.id] }, :include_blank => true%>
-      <% elsif field.key == "habitat_id"%>
-        <%= f.select :habitat_id, Habitat.find(:all, :order => "name ASC").collect{|h|[h.name, h.id] }, :include_blank => true%>
-      <% elsif field.key == "fse_org_style_id" %>
-        <%= f.select :fse_org_style_id, OrgStyle.find(:all, :order => "name ASC").collect{|h|[h.name, h.id] }, :include_blank => true%>
-      <% elsif field.key == "op_org_style_id" %>
-        <%= f.select :op_org_style_id, OrgStyle.find(:all, :order => "name ASC").collect{|h|[h.name, h.id] }, :include_blank => true%>
-      <% else %>
-        <%= f.text_area field.key, :cols=>60, :rows=>10 %>
+  <div class="bird_row span-24">
+    <div class="span-4">
+      <div class="bird_field_name ui-state-default">
+        <%= field.short_name %>
+        <% if field.short_name != field.description %>
+          <a href="#" onclick="$(this).next().toggle(200);return false;" style="float:right" ><span class="ui-icon ui-icon-triangle-1-s"></a>
+          <div class="bird_field_description hidden" style="display:none">
+            <%= field.description %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="span-19 bird_field_value last">
+
+      <% if field.form_type == "String" %>
+        <%= f.text_field field.key %>
+      <% elsif field.form_type == "Text"%>
+        <%= f.text_area field.key %> 
+      <% else %> 
+        <%= render :inline => field.render_form_func , :locals => {:f => f}  %>
       <% end %>
     </div>
   </div>
+
+
 
 <% end %>
 
