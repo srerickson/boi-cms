@@ -11,6 +11,7 @@ gem 'thinking-sphinx'
 gem 'jquery-rails', '>= 1.0.12'
 gem 'capistrano'
 gem 'paperclip'
+gem 'yaml_db'
 
 # Use unicorn as the web server
 # gem 'unicorn'
