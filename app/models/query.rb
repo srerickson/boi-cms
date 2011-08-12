@@ -27,7 +27,7 @@ class Query < ActiveRecord::Base
     self.text_search["all"] ||= nil
     self.fse_org_styles ||= {}
     self.op_org_styles ||= {}
-    self.view_fields ||= bird_schema.schema_fields.where(:default_view => true).map{|f| f.key }
+    self.view_fields ||= bird_schema.schema_fields.where(:key => ["name","logo","genus_type_id","habitat_id"]).map{|f| f.key }
     self.hide_fields = self.schema.schema_fields.map{|f| f.key }.delete_if{|f| self.view_fields.include?(f)}
     self.order_by ||= "name"
   end
@@ -75,7 +75,11 @@ class Query < ActiveRecord::Base
     search_options[:with] = withs
     search_options[:per_page] = 99999 
 
-    res = Bird.search(ts, search_options)
+    if ts.blank?
+      res = Bird.where(withs).order(self.order_by)
+    else
+      res = Bird.search(ts, search_options)
+    end
     res.delete_if { |bird| bird.nil? }    
 
     return res
