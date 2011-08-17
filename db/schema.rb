@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110812173750) do
+ActiveRecord::Schema.define(:version => 20110817211929) do
 
   create_table "assets", :force => true do |t|
     t.string   "asset_file_name"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(:version => 20110812173750) do
     t.text     "hide_fields"
     t.integer  "pagination"
     t.integer  "schema_id"
+    t.text     "org_styles"
   end
 
   create_table "schema_fields", :force => true do |t|

@@ -26,4 +26,42 @@ module ApplicationHelper
   end
 
 
+
+  def query_to_phrase(query)
+    phrase_parts = []
+    unless query.genus_types.blank?
+      phrase_parts << <<-END_PHRASE_PART
+        <span class='qp_genus_types'>with Classification: #{
+          query.genus_types.keys.map do |k|
+            g = GenusType.find(k);
+            link_to( truncate(g.name), "#", {:title => g.description, :onclick=>"return false;"} )
+          end.join(" or ")}
+        </span> 
+      END_PHRASE_PART
+    end
+    unless query.habitats.blank?
+      phrase_parts << <<-END_PHRASE_PART
+        <span class='qp_habitats'>with Habitat: #{
+          query.habitats.keys.map do |k|
+            h = Habitat.find(k);
+            link_to( truncate(h.name), "#", {:title => h.description, :onclick=>"return false;"} )
+          end.join(" or ")}
+        </span> 
+      END_PHRASE_PART
+
+    end
+    unless query.org_styles.blank?
+      phrase_parts << <<-END_PHRASE_PART
+        <span class='qp_org_styles'>with Organization Style: #{
+          query.org_styles.keys.map do |k|
+            os = OrgStyle.find(k);
+            link_to( truncate(os.name), "#", {:title => os.description, :onclick=>"return false;"} )
+          end.join(" or ")}
+        </span> 
+      END_PHRASE_PART
+    end
+    return "Listing all birds #{phrase_parts.join(" AND ")}"
+  end
+
+
 end

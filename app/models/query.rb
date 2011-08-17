@@ -6,6 +6,7 @@ class Query < ActiveRecord::Base
   serialize :text_search, Hash
   serialize :fse_org_styles, Hash
   serialize :op_org_styles, Hash
+  serialize :org_styles, Hash
 
   serialize :view_fields, Array
   serialize :hide_fields, Array
@@ -27,6 +28,7 @@ class Query < ActiveRecord::Base
     self.text_search["all"] ||= nil
     self.fse_org_styles ||= {}
     self.op_org_styles ||= {}
+    self.org_styles ||= {}
     self.view_fields ||= bird_schema.schema_fields.where(:key => ["name","logo","genus_type_id","habitat_id"]).map{|f| f.key }
     self.hide_fields = self.schema.schema_fields.map{|f| f.key }.delete_if{|f| self.view_fields.include?(f)}
     self.order_by ||= "name"
@@ -58,24 +60,33 @@ class Query < ActiveRecord::Base
     end
 
     withs = {}
-    unless habitats.nil? or habitats.empty?
+    unless habitats.blank?
       withs[:habitat_id] = []
       habitats.keys.each do |k|
         withs[:habitat_id] << k
       end
     end
 
-    unless genus_types.nil? or genus_types.empty?
+    unless genus_types.blank?
       withs[:genus_type_id] = []
       genus_types.keys.each do |k|
         withs[:genus_type_id] << k
       end
     end
 
+    # here we search org_styles of FSE *or* OP
+    # http://freelancing-god.github.com/ts/en/common_issues.html#or_attributes
+    unless org_styles.blank?
+      or_list = org_styles.keys.map{|k| "fse_org_style_id = #{k} OR op_org_style_id = #{k}" }.join(" OR ")
+      withs['org_styles'] = 1;
+      search_options[:sphinx_select] = "*, IF(#{or_list},1,0) as org_styles"
+      puts search_options[:sphinx_select]
+    end
+
     search_options[:with] = withs
     search_options[:per_page] = 99999 
 
-    if ts.blank?
+    if ts.blank? and org_styles.blank?
       res = Bird.where(withs).order(self.order_by)
     else
       res = Bird.search(ts, search_options)
@@ -86,7 +97,21 @@ class Query < ActiveRecord::Base
   end
 
   def filter_options_count
-    self.genus_types.keys.size + self.habitats.keys.size + self.fse_org_styles.keys.size + self.op_org_styles.keys.size
+    self.genus_types.keys.size + self.habitats.keys.size + self.org_styles.keys.size
+  end
+
+  def to_phrase
+    phrase_parts = []
+    unless genus_types.blank?
+      phrase_parts << "<span class='qp_genus_types'>with Classification: #{genus_types.keys.map{|g| "#{GenusType.find(g).name[0..18]}" }.join(" OR ")}</span>"
+    end
+    unless habitats.blank?
+      phrase_parts << "<span class='qp_habitats'>with Habitat: #{habitats.keys.map{|g| "#{Habitat.find(g).name[0..18]}" }.join(" OR ")}</span>"
+    end
+    unless org_styles.blank?
+      phrase_parts << "<span class='qp_org_style'>with Organization Style: #{org_styles.keys.map{|g| "#{OrgStyle.find(g).name[0..18]}" }.join(" OR ")}</span>"
+    end
+    return "All Birds #{phrase_parts.join(" AND ")}"
   end
 
   def self.search_sort_options(selected)

@@ -1,12 +1,12 @@
 <div class="search_form_div append-bottom span-24 last">
 
-<%= form_tag search_birds_path, :method=>"get" , :id => 'search_form'%>
+<%= form_tag search_birds_path, :method=>"get" , :class => 'search_form'%>
 
   <div class="span-11 last">
   Search<br/>
   <%= text_field_tag "query[text_search][all]", @query.text_search['all']  %> <%= submit_tag "Search"%>
   </div>
-
+</form>
   <!--
   <div class="span-3 last">
     Order By: <%= select_tag "query[order_by]", raw(Query.search_sort_options(@query.order_by)), :class=>"submittable-OFF"%>
@@ -14,18 +14,23 @@
   -->
 
   <div class="span-24 last">
-    <a href="#" onclick="$('#search_filter_options').toggle(200);return false;">
-      Filters
-    </a> (<%= @query.filter_options_count %>) &nbsp;&nbsp;
+    <a href="#" onclick="$('#search_filter_options').dialog('open');return false;">
+      Filter/View Options
+    </a> (<%= @query.filter_options_count %>) &nbsp;
 
-    <a href="#" onclick="$('#search_view_options').toggle(200);return false;">
-      View Options
+    <a href="#" onclick="return false;">
+      Clear Search Options
     </a>
   </div>
  
-  <div class="span-24 last prepend-top">
 
-    <div class="span-8 append-bottom hide ui-state-default" style="display:none" id="search_filter_options">
+  <div class="ui-state-default hide" id="search_filter_options">  
+
+    <%= form_tag search_birds_path, :method=>"get" , :class => 'search_form' do %>
+
+    <div class="span-13">
+      Filter Options<br/>
+
       <div class="span-4">
         <strong>Classifications</strong><br/>
         <% GenusType.all.each do |g|  %>
@@ -33,16 +38,27 @@
           <%= truncate(g.name, :length=>18) %><br/> 
         <% end%>
       </div>
-      <div class="span-4 last">
+      <div class="span-4">
         <strong>Habitats</strong><br/>
         <% Habitat.all.each do |h|  %>
           <%= check_box_tag "query[habitats][#{h.id}]",'1', (@query.habitats[h.id.to_s] == "1"), :class=>"submittable-OFF", :title=>h.name %>
           <%= truncate(h.name, :length=>18) %><br/> 
         <% end%>
       </div>
-    </div>
 
-    <div class="span-9 last append-bottom hide ui-state-default" style="display:none" id="search_view_options">
+      <div class="span-5 last">
+        <strong>Organization Style</strong> (OP or FSE)<br/>
+        <% OrgStyle.all.each do |os|  %>
+          <%= check_box_tag "query[org_styles][#{os.id}]",'1', (@query.org_styles[os.id.to_s] == "1"), :class=>"submittable-OFF", :title=>os.name %>
+          <%= truncate(os.name, :length=>26) %><br/>
+        <% end%>
+      </div>
+
+
+    </div>
+      
+    <div class="span-8 prepend-top">
+      View Options<br/>
       <div class="span-4">
         <strong>Show Fields</strong><br/>
         <%= hidden_field_tag 'query[view_fields_list]', @query.view_fields_list,  :class=>"submittable-OFF" %>
@@ -62,15 +78,21 @@
       </div>
     </div>
 
+    <%= submit_tag %>
+    <% end %><!--form -->
+  </div> <!-- popup div -->
 
-  </div>
 
 
-</form>
 </div>
 
 <script >
   $(function() {
+    $("#search_filter_options").dialog({
+      autoOpen: false,
+      minWidth:600
+    });
+    
     $( "#query_view_fields, #query_hide_fields" ).sortable({
       connectWith: ".sortable",
       placeholder: "ui-state-highlight",
