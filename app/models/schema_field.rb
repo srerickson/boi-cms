@@ -8,15 +8,15 @@ class SchemaField < ActiveRecord::Base
     ["string","text","integer","built-in"]
   end
 
-  def render_value(obj)
-    unless funcs.nil?
-      f = YAML::load(funcs)
-      if f and f.has_key?("ruby_get_value") and not f["ruby_get_value"].nil?
-        return f["ruby_get_value"];
-      end
-    end
-    return obj.attributes[key].nil? ? "" : obj.attributes[key].to_s;
-  end
+  #def render_value(obj)
+  #  unless funcs.nil?
+  #    f = YAML::load(funcs)
+  #    if f and f.has_key?("ruby_get_value") and not f["ruby_get_value"].nil?
+  #      return f["ruby_get_value"];
+  #    end
+  #  end
+  #  return obj.attributes[key].nil? ? "" : obj.attributes[key].to_s;
+  #end
 
   def first_in_group?
     prev_field = SchemaField.where(:position => self.position-1).first
