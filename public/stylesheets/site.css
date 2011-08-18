@@ -129,15 +129,19 @@ ul.ui-sortable .ui-state-highlight {
   font-size:0.9em;
 }
 
+div#advanced_search, 
+div#advanced_search input {
+  font-size: 0.9em;
+}
 
-.search_form .sortable {
+div#advanced_search .sortable {
   width:100%;
   padding: 4px 2px;
   font-size: 0.8em;
 }
 
 
-.search_form .sortable li {
+#advanced_search .sortable li {
   padding:1px 1px 1px 15px;
   margin:1px 0px;
   background-color:#FFF;
