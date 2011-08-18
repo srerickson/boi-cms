@@ -1,14 +1,23 @@
 <div class="span-24 append-bottom">  
-  <div class="bird_title"><%= @bird.name %></div>
-  <a class="ui-state-default ui-button ui-widget ui-corner-all bird_button" style="float:right" href="<%= edit_bird_path(@bird)%>">
-    <span class='ui-icon ui-icon-pencil' style='float:left;margin-left:-15px;'></span> Edit this bird</a>
+  <div class="bird_title span-21"><%= @bird.name %></div>
+  <div class="span-3 last">
+    <a class="ui-state-default ui-button ui-widget ui-corner-all bird_button" style="float:right" href="<%= edit_bird_path(@bird)%>">
+      <span class='ui-icon ui-icon-pencil' style='float:left;margin-left:-15px;'></span> Edit this bird</a>
+  </div>
 </div>
 
 
 
 <% @bird_schema.schema_fields.each do |field|%>
 
-  <div class="bird_row span-24">
+  <% if field.first_in_group? and !field.group_name.blank? %>
+    <div class="span-24 prepend-top last bird_field_group_name">
+      <h3><%= field.group_name %></h3>
+      <hr/>
+    </div>
+  <% end %>
+
+  <div class="bird_row span-24 last">
     <div class="span-4">
       <div class="bird_field_name ui-state-default">
         <%= field.short_name %>

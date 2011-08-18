@@ -1,7 +1,15 @@
 
 <% form_for @bird, :html => {:multipart => true} do |f| %>
  <%= render "shared/error_message", :target => @bird %>
+
 <% @bird_schema.schema_fields.each do |field|%>
+
+  <% if field.first_in_group? and !field.group_name.blank? %>
+    <div class="span-24 prepend-top last bird_field_group_name">
+      <h3><%= field.group_name %></h3>
+      <hr/>
+    </div>
+  <% end %>
 
 
   <div class="bird_row span-24">

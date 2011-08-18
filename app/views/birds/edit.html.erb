@@ -1,10 +1,9 @@
 <div class="span-24 append-bottom">
-  <div class="bird_title"><%= @bird.name %></div>
+  <div class="bird_title span-21"><%= @bird.name %></div>
+  <div class="span-3 last">
 
-  <%= link_to raw("<span class='ui-icon ui-icon-trash' style='float:left;margin-left:-15px;'></span>Delete the Bird"), bird_path(@bird), :method => :delete, :confirm => "Are you sure you want to delete the project? This cannot be un-done.", :style=>"float:right;", :class=>"ui-state-default ui-button ui-widget ui-corner-all bird_button"%>
-
-
-
+    <%= link_to raw("<span class='ui-icon ui-icon-trash' style='float:left;margin-left:-15px;'></span>Delete the Bird"), bird_path(@bird), :method => :delete, :confirm => "Are you sure you want to delete the project? This cannot be un-done.", :style=>"float:right;", :class=>"ui-state-default ui-button ui-widget ui-corner-all bird_button"%>
+  </div>
 </div>
 
 <%= render :partial => "form" %>

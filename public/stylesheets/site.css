@@ -60,6 +60,11 @@ table#birds_table {
   margin-bottom: 10px;
 }
 
+.bird_field_group_name h3 {
+  margin-bottom:0.1em;
+}
+
+
 label,
 .bird_field_name {
   font-weight: normal;
