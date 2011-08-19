@@ -86,7 +86,7 @@ class Query < ActiveRecord::Base
     search_options[:with] = withs
     search_options[:per_page] = 99999 
 
-    if ts.blank? and org_styles.blank?
+    if ts.blank? and org_styles.blank? and order_by == "name"
       res = Bird.where(withs).order(self.order_by)
     else
       res = Bird.search(ts, search_options)
@@ -115,12 +115,14 @@ class Query < ActiveRecord::Base
   end
 
   def self.search_sort_options(selected)
-    "<option value='' #{ selected == nil ? "selected='yes'" : ""}>Search Relevance</option>
+    "<option value='' #{ selected == nil ? "selected='yes'" : ""}>Text Search Relevance</option>
     <option value='name' #{ selected == 'name' ? "selected='yes'" : ""}>Name</option>
     <option value='genus_type' #{ selected == 'genus_type' ? "selected='yes'" : ""}>Classification</option>
     <option value='habitat' #{ selected == 'habitat' ? "selected='yes'" : ""}>Habitat</option>
     <option value='fse_org_style' #{ selected == 'fse_org_style' ? "selected='yes'" : ""} >FSE Org. Style</option>
-    <option value='op_org_style' #{ selected == 'op_org_style' ? "selected='yes'" : ""}>OP Org. Style</option>"
+    <option value='op_org_style' #{ selected == 'op_org_style' ? "selected='yes'" : ""}>OP Org. Style</option>
+    <option value='created_at' #{ selected == 'created_at' ? "selected='yes'" : ""}>Record Creation Date</option>
+    <option value='updated_at' #{ selected == 'updated_at' ? "selected='yes'" : ""}>Record Update Date</option>"
   end
 
 

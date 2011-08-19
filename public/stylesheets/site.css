@@ -135,16 +135,15 @@ div#advanced_search input {
 }
 
 div#advanced_search .sortable {
-  width:100%;
-  padding: 4px 2px;
-  font-size: 0.8em;
+  /*font-size: 0.8em;*/
+  border:3px solid lightgray;
 }
 
 
 #advanced_search .sortable li {
   padding:1px 1px 1px 15px;
   margin:1px 0px;
-  background-color:#FFF;
+  background-color:#EEE;
   cursor:move;
 }
 

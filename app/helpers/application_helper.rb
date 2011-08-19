@@ -60,6 +60,10 @@ module ApplicationHelper
         </span> 
       END_PHRASE_PART
     end
+    unless query.text_search["all"].blank?
+      phrase_parts << "containing text: \"#{query.text_search["all"]}\""
+    end
+
     return "Listing all birds #{phrase_parts.join(" AND ")}"
   end
 

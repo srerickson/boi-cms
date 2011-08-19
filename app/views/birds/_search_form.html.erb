@@ -19,10 +19,11 @@
     <a href="#" onclick="$('#advanced_search').dialog('open');return false;">
       Advanced Search
     </a> (<%= @query.filter_options_count %>) &nbsp;
-
+    <!--
     <a href="#" onclick="return false;">
       Clear Search Options
     </a>
+    -->
   </div>
  
 
@@ -54,7 +55,7 @@
           <% end%>
         </div>
         <div class="span-5 last">
-          <strong>Organization Style</strong> (OP or FSE)<br/>
+          <strong>Organization Styles</strong> (OP or FSE)<br/>
           <% OrgStyle.all.each do |os|  %>
             <%= check_box_tag "query[org_styles][#{os.id}]",'1', (@query.org_styles[os.id.to_s] == "1"), :class=>"submittable-OFF", :title=>os.name %>
             <%= truncate(os.name, :length=>26) %><br/>
@@ -73,8 +74,8 @@
               <li data-field_name="<%= f_key %>"><span class="ui-icon ui-icon-arrow-4"></span><%= @query.schema.field_name_with_key(f_key)%></li>
             <% end %>
           </ul>
-          </div>
-        <div class="span-4 last">
+        </div>
+        <div class="span-4">
           <strong>Show Fields</strong><br/>
           <%= hidden_field_tag 'query[view_fields_list]', @query.view_fields_list,  :class=>"submittable-OFF" %>
           <ul id="query_view_fields" class="sortable">
@@ -83,10 +84,14 @@
             <% end %>
           </ul>
         </div>
+        <div class="span-4 last">
+          <strong>Order By</strong><br/>
+          <%= select_tag 'query[order_by]',  raw(Query.search_sort_options(@query.order_by)) %>
+        </div>
       </div>
     </div><!-- View Options-->
   
-    <div class="span-13 prepend-top last">
+    <div class="span-16 prepend-top last">
     <%= submit_tag "Update", :style=>"float:right" %>
     </div>
 
@@ -101,7 +106,7 @@
   $(function() {
     $("#advanced_search").dialog({
       autoOpen: false,
-      minWidth:700
+      minWidth:650
     });
     
     $( "#query_view_fields, #query_hide_fields" ).sortable({
