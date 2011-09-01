@@ -29,7 +29,7 @@ class Query < ActiveRecord::Base
     self.fse_org_styles ||= {}
     self.op_org_styles ||= {}
     self.org_styles ||= {}
-    self.view_fields ||= bird_schema.schema_fields.where(:key => ["name","logo","genus_type_id","habitat_id"]).map{|f| f.key }
+    self.view_fields ||= ["logo","name","genus_type_id","habitat_id"]
     self.hide_fields = self.schema.schema_fields.map{|f| f.key }.delete_if{|f| self.view_fields.include?(f)}
     self.order_by ||= "name"
   end

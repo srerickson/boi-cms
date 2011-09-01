@@ -1,9 +1,7 @@
 <div class="search_form_div append-bottom span-24 last">
 
 <%= form_tag search_birds_path, :method=>"get" , :class => 'search_form' do %>
-
   <div class="span-11 last">
-  Search<br/>
   <%= text_field_tag "query[text_search][all]", @query.text_search['all']  %> <%= submit_tag "Search"%>
   </div>
 <% end %>
@@ -18,8 +16,9 @@
   <div class="span-24 last">
     <a href="#" onclick="$('#advanced_search').dialog('open');return false;">
       Advanced Search
-    </a> (<%= @query.filter_options_count %>) &nbsp;
+    </a> 
     <!--
+    (<%= @query.filter_options_count %>) &nbsp;
     <a href="#" onclick="return false;">
       Clear Search Options
     </a>
