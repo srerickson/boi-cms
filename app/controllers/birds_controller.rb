@@ -61,8 +61,16 @@ class BirdsController < ApplicationController
   def update
     @bird = Bird.find(params[:id])
     if @bird.update_attributes(params[:bird])
-      flash[:notice] = "Updated Bird!"
-      respond_with(@bird, :location => birds_url)
+      respond_with do |f|
+        f.html do 
+          if request.xhr?
+            render :partial => "form", :layout => false;
+          else
+            flash[:notice] = "Updated Bird!"
+            respond_with(@bird, :location => birds_url)
+          end
+        end
+      end
     else
       respond_with(@bird)
     end

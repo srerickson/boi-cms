@@ -17,8 +17,23 @@ $(document).ready(function(){
     $(this).parents('form:first').submit();
   });
 
+  set_bird_form_bindings();
+
 })
 
+
+function set_bird_form_bindings(){
+  $('form.new_bird, form.edit_bird').bind('ajax:success', function(evt,dat,stat,xhr){
+    $("div.bird_form").html(xhr.responseText);
+  });
+
+  $('form.new_bird, form.edit_bird').bind('ajax:before', function(){
+    $("div.edit_saved_status").html('<img src="/images/spinner.gif" />')
+  });
+  $('form.new_bird :input, form.edit_bird :input').keypress(function(){
+    //$('div.edit_saved_status .changes').show()
+  })
+}
 
 
 /**

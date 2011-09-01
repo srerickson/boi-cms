@@ -1,5 +1,5 @@
 
-<% form_for @bird, :html => {:multipart => true} do |f| %>
+<% form_for @bird, :html => {:multipart => true, :'data-type' => 'html' }, :remote=>true do |f| %>
  <%= render "shared/error_message", :target => @bird %>
 
 <% @bird_schema.schema_fields.each do |field|%>
@@ -18,7 +18,7 @@
         <%= field.short_name %>
         <% if field.short_name != field.description %>
           <a href="#" onclick="$(this).next().toggle(200);return false;" style="float:right" ><span class="ui-icon ui-icon-triangle-1-s"></a>
-          <div class="bird_field_description hidden" style="display:none">
+          <div class="bird_field_description hide">
             <%= field.description %>
           </div>
         <% end %>
@@ -45,3 +45,13 @@
 
 
 <% end %>
+
+<div class="ui-state-default edit_saved_status">
+  Last Saved: <span class="saved_time"><%= @bird.updated_at.blank? ? "Never" : @bird.updated_at.to_formatted_s(:long) %></span><br/>
+  <a href="#" onclick="$('div.bird_form form').submit();return false;">Save</a>
+</div>
+
+<script>
+  set_bird_form_bindings();
+</script>
+

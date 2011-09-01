@@ -68,7 +68,7 @@ table#birds_table {
 label,
 .bird_field_name {
   font-weight: normal;
-  background-color:#EEE;
+  /* background-color:#EEE; */
   padding: 2px 12px 2px 2px;
   color:#555;
 }
@@ -83,6 +83,8 @@ label a,
   margin-top:2px;
 }
 
+/* Editing */
+
 textarea {
   width:400px;
   height:150px;
@@ -93,6 +95,26 @@ input[type="text"] {
   width:400px;
   margin:0px;
 }
+
+.edit_saved_status {
+  position:fixed;
+  bottom:3px;
+  right:3px;
+  width:250px;
+  height:40px;
+  padding:5px;
+}
+
+.edit_saved_status .saved_time {
+  color:#06C;
+}
+
+.edit_saved_status a:link {
+  color:#06C; 
+  font-weight:bold;
+  text-decoration:underline;
+}
+
 
 /* General JQuery Sortable */
 
