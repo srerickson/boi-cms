@@ -11,7 +11,7 @@ class BirdsController < ApplicationController
   def search
     self.get_query
     @birds = @query.results
-    current_user.set_query(@query)
+    #current_user.set_query(@query)
     respond_with(@birds) do |format|
       format.html do
         if request.xhr?
@@ -90,8 +90,8 @@ protected
     @query = nil;
     if params[:query]
       @query = Query.new(params[:query])
-    elsif current_user.query
-      @query = current_user.query
+    #elsif current_user.query
+    #  @query = current_user.query
     else
       @query = Query.new()
     end
