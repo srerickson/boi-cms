@@ -109,7 +109,9 @@ input[type="text"] {
   color:#06C;
 }
 
-.edit_saved_status a:link {
+.edit_saved_status a,
+.edit_saved_status a:link,
+.edit_saved_status a:visited {
   color:#06C; 
   font-weight:bold;
   text-decoration:underline;

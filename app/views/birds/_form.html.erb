@@ -46,9 +46,9 @@
 
 <% end %>
 
-<div class="ui-state-default edit_saved_status">
+<div class="edit_saved_status ui-state-default">
+  <a href="#" onclick="$('div.bird_form form').submit();return false;">Save</a></br>
   Last Saved: <span class="saved_time"><%= @bird.updated_at.blank? ? "Never" : @bird.updated_at.to_formatted_s(:long) %></span><br/>
-  <a href="#" onclick="$('div.bird_form form').submit();return false;">Save</a>
 </div>
 
 <script>
