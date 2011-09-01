@@ -48,7 +48,7 @@
 
 <div class="edit_saved_status ui-state-default">
   <a href="#" onclick="$('div.bird_form form').submit();return false;">Save</a></br>
-  Last Saved: <span class="saved_time"><%= @bird.updated_at.blank? ? "Never" : @bird.updated_at.to_formatted_s(:long) %></span><br/>
+  Last Saved: <span class="saved_time"><%= @bird.updated_at.blank? ? "Never" : "#{distance_of_time_in_words_to_now(@bird.updated_at)} ago" %></span><br/>
 </div>
 
 <script>
