@@ -10,6 +10,9 @@ schemas:
   records: 
   - - 7
     - bird
-    - USE WITH EXTREME CAUTION
+    - |-
+      Definitions of Bird fields.
+      
+      USE WITH CARE
     - 2011-08-10 18:10:36 Z
-    - 2011-08-12 18:10:06 Z
+    - 2011-08-19 18:51:39 Z

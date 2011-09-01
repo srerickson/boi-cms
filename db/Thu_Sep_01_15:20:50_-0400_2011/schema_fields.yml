@@ -27,7 +27,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 20:06:21 Z
+    - 2011-08-19 18:51:39 Z
     - ""
     - String
     - ""
@@ -37,11 +37,11 @@ schema_fields:
     - URL
     - Project URL
     - 
-    - 2
-    - ""
+    - 3
+    - <%= link_to obj.url, url_for(obj.url) %>
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 21:20:37 Z
+    - 2011-08-19 18:51:39 Z
     - ""
     - String
     - ""
@@ -51,7 +51,7 @@ schema_fields:
     - Logo
     - Project's Logo (.png, .jpg, .gif)
     - 
-    - 3
+    - 2
     - <%= image_tag obj.logo.asset.url unless obj.logo.nil? %>
     - |
       <% unless f.object.logo.nil? %>
@@ -63,7 +63,7 @@ schema_fields:
       </div>
 
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 21:20:37 Z
+    - 2011-08-19 18:51:39 Z
     - <%= image_tag obj.logo.asset.url("sq50") unless obj.logo.nil? %>
     - Other
     - ""
@@ -77,7 +77,7 @@ schema_fields:
     - <%= obj.genus_type.name unless obj.genus_type.nil? %>
     - <%= f.select :genus_type_id, GenusType.find(:all, :order => "name ASC").collect{|g|[g.name, g.id] }, :include_blank => true%>
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 20:06:21 Z
+    - 2011-08-19 18:51:39 Z
     - ""
     - Other
     - ""
@@ -87,25 +87,25 @@ schema_fields:
     - Habitat
     - Habitat
     - 
-    - 6
+    - 4
     - <%= obj.habitat.name unless obj.habitat.nil? %>
     - " <%= f.select :habitat_id, Habitat.find(:all, :order => \"name ASC\").collect{|h|[h.name, h.id] }, :include_blank => true%>"
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 21:20:37 Z
+    - 2011-08-19 18:51:39 Z
     - ""
     - Other
     - ""
   - - 66
     - 7
     - foritself
-    - For Itself?
-    - Is the project in question aware of itself as an entity? Or is it identified by a second order observation of people, behavior?
+    - Is it self-aware?
+    - Is the project in question aware of itself as an entity? Does it actively promote a sense of belonging, community or participation? Or is it identified by a second order observation of people, behavior, or designed to display "emergent" behavior, or the effects of collective behavior?
     - 
     - 7
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 20:06:22 Z
+    - 2011-08-19 18:51:39 Z
     - ""
     - Text
     - ""
@@ -115,11 +115,11 @@ schema_fields:
     - Brand
     - Describe how the brand / logo / visual identity is positioned.
     - 
-    - 4
+    - 6
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 21:20:37 Z
+    - 2011-08-19 18:51:39 Z
     - ""
     - Text
     - ""
@@ -133,7 +133,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 20:06:22 Z
+    - 2011-08-19 18:54:01 Z
     - ""
     - Text
     - Formal Social Enterprise
@@ -147,7 +147,7 @@ schema_fields:
     - <%= obj.fse_org_style.name unless obj.fse_org_style.nil? %>
     - " <%= f.select :fse_org_style_id, OrgStyle.find(:all, :order => \"name ASC\").collect{|h|[h.name, h.id] }, :include_blank => true%>\r\n"
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 20:06:22 Z
+    - 2011-08-19 18:54:01 Z
     - ""
     - Other
     - Formal Social Enterprise
@@ -161,7 +161,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 20:06:22 Z
+    - 2011-08-19 18:54:01 Z
     - ""
     - Text
     - Formal Social Enterprise
@@ -175,7 +175,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 20:06:22 Z
+    - 2011-08-19 18:53:34 Z
     - ""
     - Text
     - Formal Social Enterprise
@@ -189,7 +189,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 20:06:22 Z
+    - 2011-08-19 18:53:34 Z
     - ""
     - Text
     - Formal Social Enterprise
@@ -203,7 +203,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 20:06:22 Z
+    - 2011-08-19 18:53:34 Z
     - ""
     - Text
     - Organized Public
@@ -217,7 +217,7 @@ schema_fields:
     - <%= obj.op_org_style.name unless obj.op_org_style.nil? %>
     - <%= f.select :op_org_style_id, OrgStyle.find(:all, :order => "name ASC").collect{|h|[h.name, h.id] }, :include_blank => true%>
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 20:11:30 Z
+    - 2011-08-19 18:53:34 Z
     - ""
     - Other
     - Organized Public
@@ -231,7 +231,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 20:11:30 Z
+    - 2011-08-19 18:53:34 Z
     - ""
     - Text
     - Organized Public
@@ -245,7 +245,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 20:11:30 Z
+    - 2011-08-19 18:53:34 Z
     - ""
     - Text
     - Organized Public
@@ -259,7 +259,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 20:11:30 Z
+    - 2011-08-19 18:52:40 Z
     - ""
     - Text
     - Ontogeny
@@ -273,7 +273,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 20:11:30 Z
+    - 2011-08-19 18:52:40 Z
     - ""
     - Text
     - Ontogeny
@@ -287,7 +287,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 20:13:49 Z
+    - 2011-08-19 18:52:40 Z
     - ""
     - Text
     - Ontogeny
@@ -301,7 +301,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 21:14:38 Z
+    - 2011-08-19 18:52:40 Z
     - ""
     - Text
     - Behavior
@@ -311,11 +311,11 @@ schema_fields:
     - Availability
     - What is the Availability of the resource? Is it licensed? Sold? what are the Terms of Service?
     - 
-    - 22
+    - 21
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 21:14:38 Z
+    - 2011-08-19 18:52:40 Z
     - ""
     - Text
     - Behavior
@@ -325,11 +325,11 @@ schema_fields:
     - Participation
     - Who participates in the setting or changing of the goals? FSE, OP, Both, Neither?
     - 
-    - 21
+    - 22
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 21:14:38 Z
+    - 2011-08-19 18:52:40 Z
     - ""
     - Text
     - Behavior
@@ -343,7 +343,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 21:14:38 Z
+    - 2011-08-19 18:52:40 Z
     - ""
     - Text
     - Behavior
@@ -357,7 +357,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 21:15:11 Z
+    - 2011-08-19 18:52:40 Z
     - ""
     - Text
     - Behavior
@@ -371,7 +371,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 21:14:38 Z
+    - 2011-08-19 18:52:40 Z
     - ""
     - Text
     - Behavior
@@ -385,7 +385,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 21:15:11 Z
+    - 2011-08-19 18:52:40 Z
     - ""
     - Text
     - Behavior
@@ -399,21 +399,21 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 21:15:35 Z
+    - 2011-08-19 18:51:39 Z
     - ""
     - Text
     - Mating
   - - 88
     - 7
     - clients
-    - Project Clientes
+    - Project Clients
     - Describe the project clients (on whose behalf does the entity provide services)?
     - 
     - 28
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 21:15:11 Z
+    - 2011-08-19 18:51:39 Z
     - ""
     - Text
     - Mating
@@ -427,7 +427,7 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 21:14:38 Z
+    - 2011-08-19 18:51:39 Z
     - ""
     - Text
     - Mating
@@ -441,7 +441,35 @@ schema_fields:
     - ""
     - ""
     - 2011-08-10 18:10:36 Z
-    - 2011-08-18 21:14:38 Z
+    - 2011-08-19 18:51:39 Z
     - ""
     - Text
     - Mating
+  - - 92
+    - 7
+    - created_at
+    - Created At
+    - ""
+    - 
+    - 31
+    - <%= obj.created_at.to_formatted_s(:long) unless obj.created_at.nil?  %>
+    - <%= f.object.created_at.to_formatted_s(:long) unless f.object.created_at.nil?  %>
+    - 2011-09-01 18:48:35 Z
+    - 2011-09-01 19:05:52 Z
+    - ""
+    - Other
+    - ""
+  - - 93
+    - 7
+    - updated_at
+    - Updated At
+    - ""
+    - 
+    - 32
+    - <%= obj.updated_at.to_formatted_s(:long) unless obj.updated_at.nil? %>
+    - <%= f.object.updated_at.to_formatted_s(:long) unless f.object.updated_at.nil? %>
+    - 2011-09-01 18:51:30 Z
+    - 2011-09-01 19:05:52 Z
+    - ""
+    - Other
+    - ""
