@@ -8,7 +8,7 @@
   </thead>
   <tbody>
     <% birds_list.each_with_index do |bird, i| %>
-      <tr data-bird_id="<%=bird.id%>">
+      <tr data-bird_id="<%=bird.id%>" class="bird_list_row">
         <% @query.view_fields.each_with_index do |f_name, i|%>
           <td><%= render :inline => sanitize_for_view(bird.list_value_of_key(f_name)), :locals => {:obj => bird }%></td>
         <%end%>  
@@ -19,10 +19,10 @@
 
 <script>
   $(document).ready(function(){
-    //$("#flexi_table").flexigrid()
+    $("#flexi_table").flexigrid()
   });
   
-  $("#birds_table tr").bind({
+  $("#birds_table tr.bird_list_row").bind({
     mouseover: function(){
       $(this).addClass("mouseover")
       $(this).children("td").addClass("mouseover")
