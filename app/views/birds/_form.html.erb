@@ -1,6 +1,13 @@
 
+
 <% form_for @bird, :html => {:multipart => true, :'data-type' => 'html' }, :remote=>true do |f| %>
- <%= render "shared/error_message", :target => @bird %>
+
+<% content_for :images do %>
+  <%= render :partial => "images_form", :locals => {:f => f} %>
+<% end %>
+
+
+  <%= render "shared/error_message", :target => @bird %>
 
 <% @bird_schema.schema_fields.each do |field|%>
 
@@ -13,7 +20,7 @@
 
 
   <div class="bird_row span-24">
-    <div class="span-4">
+    <div class="span-5">
       <div class="bird_field_name ui-state-default">
         <%= field.short_name %>
         <% if field.short_name != field.description %>
@@ -24,12 +31,14 @@
         <% end %>
       </div>
     </div>
-    <div class="span-19 bird_field_value last">
+    <div class="span-195 bird_field_value last">
 
       <% if field.form_type == "String" %>
         <%= f.text_field field.key %>
       <% elsif field.form_type == "Text"%>
         <%= f.text_area field.key %> 
+      <% elsif field.form_type == "Built-In" %>
+        <%= yield field.key.to_sym if content_for?(field.key.to_sym)%>
       <% else %> 
         <%= render :inline => field.render_form_func , :locals => {:f => f}  %>
       <% end %>
@@ -48,7 +57,9 @@
 
 <div class="edit_saved_status ui-state-default">
   <a href="#" onclick="$('div.bird_form form').submit();return false;">Save</a>
-  <a href="#" style="font-weight:normal;" onclick="save_and_redirect($('div.bird_form form'),'<%= bird_url(@bird) %>');return false;">Save and Preview</a>
+  <% unless @bird.id.nil? %>
+    <a href="#" style="font-weight:normal;" onclick="save_and_redirect($('div.bird_form form'),'<%= bird_url(@bird) %>');return false;">Save and Preview</a>
+  <% end %>
   <p>
     Last Saved: <span class="saved_time"><%= @bird.updated_at.blank? ? "Never" : "#{distance_of_time_in_words_to_now(@bird.updated_at)} ago" %></span>
   </p>
@@ -57,4 +68,7 @@
 <script>
   set_bird_form_bindings();
 </script>
+
+
+
 
