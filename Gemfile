@@ -12,6 +12,7 @@ gem 'jquery-rails', '>= 1.0.12'
 gem 'capistrano'
 gem 'paperclip'
 gem 'yaml_db'
+gem "taps"
 
 # Use unicorn as the web server
 # gem 'unicorn'

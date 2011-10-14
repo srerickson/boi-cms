@@ -45,11 +45,28 @@ namespace :deploy do
   end
 
   task :stop_thinking_sphinx, :roles => [:app] do
-    run "cd #{deploy_to}/current && rake ts:stop"
+    run "cd #{deploy_to}/current && bundle exec rake ts:stop"
   end
 
   task :start_thinking_sphinx, :roles => [:app] do
-    run "cd #{deploy_to}/current && rake ts:rebuild"
+    run "cd #{deploy_to}/current && bundle exec rake ts:rebuild"
   end
 
 end
+
+
+task :pull_db do
+  taps_user = `uuidgen`.strip
+  taps_pass = `uuidgen`.strip
+
+  run "nohup #{deploy_to}/taps_ctrl.sh start #{taps_user} #{taps_pass} > #{deploy_to}/taps.log 2>&1 ", :pty => true
+  set(:user) do
+    Capistrano::CLI.ui.ask "Give me local DB user: "
+  end
+  set(:pass) do
+    Capistrano::CLI.ui.ask "Give me local DB pass: "
+  end
+  system("bundle exec taps pull mysql2://#{user}:#{pass}@localhost/boi http://#{taps_user}:#{taps_pass}@#{application}:5000")
+  run "#{deploy_to}/taps_ctrl.sh stop"
+end
+
