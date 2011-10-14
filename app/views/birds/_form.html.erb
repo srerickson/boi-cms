@@ -3,7 +3,7 @@
 <% form_for @bird, :html => {:multipart => true, :'data-type' => 'html' }, :remote=>true do |f| %>
 
 <% content_for :images do %>
-  <%= render :partial => "images_form", :locals => {:f => f} %>
+  <%# render :partial => "images_form", :locals => {:f => f} %>
 <% end %>
 
 
