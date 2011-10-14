@@ -66,7 +66,7 @@ task :pull_db do
   set(:pass) do
     Capistrano::CLI.ui.ask "Give me local DB pass: "
   end
-  system("bundle exec taps pull mysql2://#{user}:#{pass}@localhost/boi http://#{taps_user}:#{taps_pass}@#{application}:5000")
+  system("bundle exec taps pull mysql2://#{user}:#{pass}@localhost/boi http://#{taps_user}:#{taps_pass}@thatwhich.net:5000")
   run "#{deploy_to}/taps_ctrl.sh stop"
 end
 
