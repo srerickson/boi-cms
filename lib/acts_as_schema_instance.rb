@@ -23,10 +23,10 @@ module SchemaInstance
   module InstanceMethods
     def value_of_key(key)
       sf = self.class.schema.schema_fields.where(:key=>key).first
-      unless sf.render_value_func.blank?
-        return sf.render_value_func
+      if sf.render_value_func.blank?
+        return sf.default_value_func(self)
       else
-        return self.attributes[key]
+        return sf.render_value_func
       end
     end
 
