@@ -57,6 +57,11 @@ table#birds_table {
   font-size:2em;
 }
 
+.bird_title a {
+  text-decoration:none;
+}
+
+
 .bird_row {
   margin-bottom: 10px;
 }
@@ -116,8 +121,12 @@ input[type="text"] {
   color:#06C; 
   font-weight:bold;
   text-decoration:underline;
+  margin-right:10px;
 }
 
+.edit_saved_status p {
+  margin-top:5px
+}
 
 /* General JQuery Sortable */
 

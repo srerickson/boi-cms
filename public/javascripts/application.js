@@ -36,6 +36,14 @@ function set_bird_form_bindings(){
 }
 
 
+function save_and_redirect($form, url){
+  $('form.new_bird, form.edit_bird').bind('ajax:success', function(evt,dat,stat,xhr){
+    window.location = url;
+  });
+  $form.submit();
+}
+
+
 /**
 * For dynamic "nested model forms"
 * See ApplicationHelper#link_to_add_fields.

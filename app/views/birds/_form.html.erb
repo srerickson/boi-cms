@@ -47,8 +47,11 @@
 <% end %>
 
 <div class="edit_saved_status ui-state-default">
-  <a href="#" onclick="$('div.bird_form form').submit();return false;">Save</a></br>
-  Last Saved: <span class="saved_time"><%= @bird.updated_at.blank? ? "Never" : "#{distance_of_time_in_words_to_now(@bird.updated_at)} ago" %></span><br/>
+  <a href="#" onclick="$('div.bird_form form').submit();return false;">Save</a>
+  <a href="#" style="font-weight:normal;" onclick="save_and_redirect($('div.bird_form form'),'<%= bird_url(@bird) %>');return false;">Save and Preview</a>
+  <p>
+    Last Saved: <span class="saved_time"><%= @bird.updated_at.blank? ? "Never" : "#{distance_of_time_in_words_to_now(@bird.updated_at)} ago" %></span>
+  </p>
 </div>
 
 <script>
