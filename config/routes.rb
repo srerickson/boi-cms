@@ -4,6 +4,7 @@ Boi::Application.routes.draw do
   resources :birds do
     get 'search', :on => :collection
     get 'flexi', :on => :collection
+    resources :assets
   end
   resources :org_styles
   resources :genus_types

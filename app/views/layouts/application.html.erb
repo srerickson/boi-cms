@@ -12,9 +12,26 @@
     <link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection">
   <![endif]-->
 
-  <%= stylesheet_link_tag "jquery-theme/jquery-ui-1.8.14.custom", "vendor/flexigrid", "site"  %>
-  <%= javascript_include_tag "vendor/jquery-1.5.1.min","vendor/jquery-ui-1.8.14.custom.min", "rails", "vendor/flexigrid", "application" %>
+  <%= stylesheet_link_tag "jquery-theme/jquery-ui-1.8.14.custom",
+                          "vendor/flexigrid", 
+                          "vendor/uploadify",
+                          "site"  %>
+
+  <%= javascript_include_tag  "vendor/jquery-1.5.1.min",
+                              "vendor/jquery-ui-1.8.14.custom.min",
+                              "rails",
+                              "vendor/flexigrid", 
+                              "vendor/swfobject",
+                              "vendor/jquery.uploadify.v2.1.4.min",
+                              "application" %>
   <%= csrf_meta_tag %>
+
+  <script>
+    <%- session_key = Rails.application.config.session_options[:key] -%>
+    BOI_SESSION_KEY = "<%= session_key %>";
+    BOI_SESSION_VAL = '<%= cookies[session_key] %>';
+  </script>  
+
 </head>
 <body>
 <div class="container">

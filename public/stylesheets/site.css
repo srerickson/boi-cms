@@ -63,7 +63,10 @@ table#birds_table {
 
 
 .bird_row {
-  margin-bottom: 10px;
+  margin-bottom: 25px;
+}
+
+.bird_row .bird_field_value {
 }
 
 .bird_field_group_name h3 {
@@ -92,7 +95,7 @@ label a,
 /* Editing */
 
 textarea {
-  width:400px;
+  width:550px;
   height:150px;
   margin:0px;
 }

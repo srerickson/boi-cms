@@ -13,7 +13,15 @@ class Bird < ActiveRecord::Base
     :conditions => {:role => "logo"},
     :dependent => :destroy    
 
+  has_many :images,
+    :class_name => "Asset",
+    :as => "attached_to",
+    :conditions => {:role => ""},
+    :dependent => :destroy
+
   accepts_nested_attributes_for :logo, :allow_destroy => true
+  accepts_nested_attributes_for :images, :allow_destroy => true
+
 
   attr_accessor :uploaded_logo #upload to this attr for replacing logos
   def uploaded_logo=(img)
