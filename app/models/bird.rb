@@ -16,7 +16,7 @@ class Bird < ActiveRecord::Base
   has_many :images,
     :class_name => "Asset",
     :as => "attached_to",
-    :conditions => {:role => ""},
+    :conditions => {:role => nil},
     :dependent => :destroy
 
   accepts_nested_attributes_for :logo, :allow_destroy => true

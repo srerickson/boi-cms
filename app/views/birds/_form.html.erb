@@ -4,7 +4,7 @@
 
 <% content_for :images do %>
   <div id="media_files">
-    <% render :partial => "assets/assets", :locals => {:assets => @bird.images} %>
+    <%= render :partial => "assets/assets", :locals => {:assets => @bird.images} %>
   </div>
   <div id="media_file_uploader"></div>
 <% end %>
@@ -34,7 +34,7 @@
         <% end %>
       </div>
     </div>
-    <div class="span-195 bird_field_value last">
+    <div class="span-15 bird_field_value last">
 
       <% if field.form_type == "String" %>
         <%= f.text_field field.key %>
