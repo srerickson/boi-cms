@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110818215615) do
+ActiveRecord::Schema.define(:version => 20111020190735) do
 
   create_table "assets", :force => true do |t|
     t.string   "asset_file_name"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20110818215615) do
     t.integer  "comments_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "updated_by"
   end
 
   create_table "comments", :force => true do |t|
@@ -82,8 +83,8 @@ ActiveRecord::Schema.define(:version => 20110818215615) do
   end
 
   create_table "habitats", :force => true do |t|
-    t.text     "name",                              :null => false
-    t.text     "description", :limit => 2147483647, :null => false
+    t.text     "name",        :null => false
+    t.text     "description", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -137,8 +138,8 @@ ActiveRecord::Schema.define(:version => 20110818215615) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                                                :null => false
+    t.string   "encrypted_password",     :limit => 128,                :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
