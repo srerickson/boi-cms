@@ -1,4 +1,14 @@
-images:
-<% assets.each do |ass| %>
-  <%= image_tag ass.asset.url("sq50") %>
+<% if assets.empty? %>
+ <i class="quiet">no images</i>
+<% end %>
+
+
+<% assets.each_with_index do |ass, i| %>
+  <a href="#" onclick="$('#image_<%= i %>').dialog('option','minWidth', <%= Paperclip::Geometry.from_file(ass.asset.to_file(:original)).width+24 %>);$('#image_<%= i %>').dialog('open');return false;">
+    <%= image_tag ass.asset.url("sq50") %>
+  </a>
+  <div class="ui-state-default hide dialog" id="image_<%= i %>">
+      <%= image_tag ass.asset.url("original") %>
+  </div>
+
 <% end %>

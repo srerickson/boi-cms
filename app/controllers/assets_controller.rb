@@ -46,7 +46,7 @@ class AssetsController < ApplicationController
         flash[:notice] = "Successfully created asset."
         respond_to do |format|
           format.html {
-            render :partial => "assets/assets", :locals => {:assets => @bird.images }
+            render :partial => "assets/form", :locals => {:assets => @bird.images, :attached_to => @bird }
           }
           format.json {render :json => { :result => 'success', :asset => asset_path(@asset) } }
         end
@@ -78,7 +78,13 @@ class AssetsController < ApplicationController
     @asset.destroy
 
     respond_to do |format|
-      format.html { redirect_to(assets_url) }
+      format.html {
+        if request.xhr?
+           render :partial => "birds/form", :layout => false; 
+        else
+          redirect_to edit_bird_url(@bird)
+        end
+      }
       format.xml  { head :ok }
     end
   end

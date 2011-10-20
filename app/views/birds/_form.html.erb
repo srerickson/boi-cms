@@ -4,7 +4,7 @@
 
 <% content_for :images do %>
   <div id="media_files">
-    <%= render :partial => "assets/assets", :locals => {:assets => @bird.images} %>
+    <%= render :partial => "assets/form", :locals => {:assets => @bird.images, :attached_to => @bird } %>
   </div>
   <div id="media_file_uploader"></div>
 <% end %>
@@ -69,6 +69,7 @@
 </div>
 
 <script>
+  // this is here so that it runs even after each XHR request
   set_bird_form_bindings();
 </script>
 

@@ -17,39 +17,14 @@ $(document).ready(function(){
     $(this).parents('form:first').submit();
   });
 
-  set_bird_form_bindings();
 
-
-  //
-  // UPLOADIFY
-  //
-
-  // Create an empty object to store our custom script data
-  var uploadify_script_data = {};
-  
-  // Fetch the CSRF meta tag data
-  var csrf_token = $('meta[name=csrf-token]').attr('content');
-  var csrf_param = $('meta[name=csrf-param]').attr('content');
-  
-  // Now associate the data in the config, encoding the data safely
-  uploadify_script_data[csrf_param] = encodeURI(csrf_token);
-
-  // Associate the session information
-  // .... see views/layouts/application.html.erb
-  uploadify_script_data[BOI_SESSION_KEY] = BOI_SESSION_VAL;;
-
-  $("#media_file_uploader").uploadify({
-        uploader: '/uploadify/uploadify.swf',
-        script: 'assets',
-        auto: true,
-        scriptData: uploadify_script_data,
-        multi: true,
-        cancelImg: '/images/cancel.png',
-        onComplete: function(event, queueID, fileObj, response, data) {
-          $("#media_files").html(response);
-          $("#media_files").animate({scrollTop: $("#media_files").attr("scrollHeight") - $('#media_files').height()}, 150);
-        }
+  $(".dialog").dialog({
+      autoOpen: false,
   });
+
+
+  //set_bird_form_bindings();
+
 
 
 
@@ -68,6 +43,7 @@ function set_bird_form_bindings(){
   $('form.new_bird :input, form.edit_bird :input').keypress(function(){
     //$('div.edit_saved_status .changes').show()
   })
+  setup_uploadify()
 }
 
 
@@ -101,3 +77,34 @@ function update_list_positions(select) {
     $(this).find("input.field_position").attr("value",$(select).index(this)+1)
   })
 }
+
+function setup_uploadify(){
+  // Create an empty object to store our custom script data
+  var uploadify_script_data = {};
+  
+  // Fetch the CSRF meta tag data
+  var csrf_token = $('meta[name=csrf-token]').attr('content');
+  var csrf_param = $('meta[name=csrf-param]').attr('content');
+  
+  // Now associate the data in the config, encoding the data safely
+  uploadify_script_data[csrf_param] = encodeURI(csrf_token);
+
+  // Associate the session information
+  // .... see views/layouts/application.html.erb
+  uploadify_script_data[BOI_SESSION_KEY] = BOI_SESSION_VAL;;
+
+  $("#media_file_uploader").uploadify({
+        uploader: '/uploadify/uploadify.swf',
+        script: 'assets',
+        auto: true,
+        scriptData: uploadify_script_data,
+        multi: true,
+        cancelImg: '/images/cancel.png',
+        onComplete: function(event, queueID, fileObj, response, data) {
+          $("#media_files").html(response);
+          $("#media_files").animate({scrollTop: $("#media_files").attr("scrollHeight") - $('#media_files').height()}, 150);
+        }
+  });
+
+}
+

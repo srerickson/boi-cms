@@ -14,7 +14,7 @@
   -->
 
   <div class="span-24 last">
-    <a href="#" onclick="$('#advanced_search').dialog('open');return false;">
+    <a href="#" onclick="$('#advanced_search').dialog('option','minWidth',650);$('#advanced_search').dialog('open');return false;">
       Advanced Search
     </a> 
     <!--
@@ -26,7 +26,7 @@
   </div>
  
 
-  <div class="ui-state-default hide" id="advanced_search">  
+  <div class="ui-state-default hide dialog" id="advanced_search">  
 
     <%= form_tag search_birds_path, :method=>"get" , :class => 'search_form' do %>
 
@@ -103,10 +103,6 @@
 
 <script >
   $(function() {
-    $("#advanced_search").dialog({
-      autoOpen: false,
-      minWidth:650
-    });
     
     $( "#query_view_fields, #query_hide_fields" ).sortable({
       connectWith: ".sortable",
