@@ -20,21 +20,17 @@
 
   <label class="span-4">Fields</label>
   <div class="span-12 last">
-    <ul id="schema_fields">
 
     <%= f.text_area :field_descriptions %>
     <%# f.fields_for :schema_fields do |sf| %>
       <%# render "schema_fields/nested_form", :f => sf %>
     <%# end %>
 
-    </ul>
     <%# link_to_add_fields 'Add a Field', f, :schema_fields %>
   </div>  
   <div class="span-12 last">
     <%= f.submit "Save" %>
   </div>
-
-
 
 <% end %>
 

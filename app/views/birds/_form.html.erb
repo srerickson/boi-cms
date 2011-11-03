@@ -1,59 +1,83 @@
-
-
 <% form_for @bird, :html => {:multipart => true, :'data-type' => 'html' }, :remote=>true do |f| %>
 
-<% content_for :images do %>
-  <div id="media_files">
-    <%= render :partial => "assets/form", :locals => {:assets => @bird.images, :attached_to => @bird } %>
-  </div>
-  <div id="media_file_uploader"></div>
-<% end %>
+
+  <% content_for :name do %>
+    <%= f.text_field :name %>
+  <% end %>
+
+  <% content_for :url do %>
+    <%= f.text_field :url %>
+  <% end %>
+
+  <% content_for :logo do %>
+    <% unless f.object.logo.nil? %>
+      <%= image_tag(f.object.logo.asset.url()) %>
+    <% end %>
+    <div>
+      upload a new logo or replace the existing one.:
+      <%= f.file_field :uploaded_logo %>
+    </div>
+  <% end %>
+
+  <% content_for :images do %>
+    <div id="media_files">
+      <%= render :partial => "assets/form", :locals => {:assets => @bird.images, :attached_to => @bird } %>
+    </div>
+    <div id="media_file_uploader"></div>
+  <% end %>
+
+  <% content_for :habitat_id do %>
+    <%= f.select :habitat_id, Habitat.find(:all, :order => "name ASC").collect{|h|[h.name, h.id] }, :include_blank => true%>
+  <% end %>
+
+  <% content_for :genus_type_id do %>
+    <%= f.select :genus_type_id, GenusType.find(:all, :order => "name ASC").collect{|g|[g.name, g.id] }, :include_blank => true%>
+  <% end %>
+
 
 
   <%= render "shared/error_message", :target => @bird %>
 
-<% @bird_schema.schema_fields.each do |field|%>
 
-  <% if field.first_in_group? and !field.group_name.blank? %>
+  <% @bird_schema.sections.each do |section|%>
+
     <div class="span-24 prepend-top last bird_field_group_name">
-      <h3><%= field.group_name %></h3>
+      <h3><%= section["short_name"] %></h3>
       <hr/>
     </div>
+
+    <% continue if section["fields"].nil? %>
+
+    <% section["fields"].each do |field| %>
+
+      <div class="bird_row span-24">
+        <div class="span-5">
+          <div class="bird_field_name ui-state-default">
+            <%= field["short_name"] %>
+            <% if field["short_name"] != field["description"] and not field["description"].blank? %>
+              <a href="#" onclick="$(this).next().toggle(200);return false;" style="float:right" ><span class="ui-icon ui-icon-triangle-1-s"></a>
+              <div class="bird_field_description hide">
+                <%= field["description"] %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="span-15 bird_field_value last">
+
+          <% if content_for?(field["key"].to_sym) %>
+            <%= yield field["key"].to_sym %> 
+          <% else %>
+            <%= f.text_area field["key"].to_sym %>
+          <% end %>
+        </div>
+      </div>
+
+    <% end %>
+
   <% end %>
 
 
-  <div class="bird_row span-24">
-    <div class="span-5">
-      <div class="bird_field_name ui-state-default">
-        <%= field.short_name %>
-        <% if field.short_name != field.description %>
-          <a href="#" onclick="$(this).next().toggle(200);return false;" style="float:right" ><span class="ui-icon ui-icon-triangle-1-s"></a>
-          <div class="bird_field_description hide">
-            <%= field.description %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-    <div class="span-15 bird_field_value last">
-
-      <% if field.form_type == "String" %>
-        <%= f.text_field field.key %>
-      <% elsif field.form_type == "Text"%>
-        <%= f.text_area field.key %> 
-      <% elsif field.form_type == "Built-In" %>
-        <%= yield field.key.to_sym if content_for?(field.key.to_sym)%>
-      <% else %> 
-        <%= render :inline => field.render_form_func , :locals => {:f => f}  %>
-      <% end %>
-    </div>
-  </div>
-
-
-
-<% end %>
-
-
-<%= f.submit "Save" %>
+  <%= f.submit "Save" %>
 
 
 <% end %>

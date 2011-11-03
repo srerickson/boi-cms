@@ -1,30 +1,27 @@
-<% content_for "logo".to_sym do %>
+<% content_for :logo do %>
   <%= image_tag @bird.logo.asset.url("sq50") unless @bird.logo.nil? %>
 <% end %>
 
-<% content_for "habitat_id".to_sym do %>
+<% content_for :habitat_id do %>
   <%= @bird.habitat.name unless @bird.habitat.nil? %>
 <% end %>
 
 
-<% content_for "genus_type_id".to_sym do %>
+<% content_for :genus_type_id do %>
   <%= @bird.genus_type.name unless @bird.genus_type.nil? %>
 <% end %>
 
-<% content_for "op_org_style_id".to_sym do %>
+<% content_for :op_org_style_id do %>
   <%= @bird.op_org_style.name unless @bird.op_org_style.nil? %>
 <% end %>
 
-<% content_for "fse_org_style_id".to_sym do %>
+<% content_for :fse_org_style_id do %>
   <%= @bird.fse_org_style.name unless @bird.fse_org_style.nil? %>
 <% end %>
-
 
 <% content_for :images do %>
   <%= render :partial => "assets/assets", :locals => {:assets => @bird.images} %>
 <% end%>
-
-
 
 
 <div class="span-24 append-bottom">  
@@ -35,7 +32,6 @@
   </div>
   <hr/>
 </div>
-
 
 <% @bird_schema.sections.each do |section|%>
 
