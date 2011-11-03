@@ -1,0 +1,32 @@
+<% content_for "logo_#{i}".to_sym do %>
+  <%= image_tag bird.logo.asset.url("sq50") unless bird.logo.nil? %>
+<% end %>
+
+<% content_for "habitat_id_#{i}".to_sym do %>
+  <%= bird.habitat.name unless bird.habitat.nil? %>
+<% end %>
+
+
+<% content_for "genus_type_id_#{i}".to_sym do %>
+  <%= bird.genus_type.name unless bird.genus_type.nil? %>
+<% end %>
+
+<% content_for "op_org_style_id_#{i}".to_sym do %>
+  <%= bird.op_org_style.name unless bird.op_org_style.nil? %>
+<% end %>
+
+<% content_for "fse_org_style_id_#{i}".to_sym do %>
+  <%= bird.fse_org_style.name unless bird.fse_org_style.nil? %>
+<% end %>
+
+
+
+<% only_fields.each do |f_key|%>
+  <td>
+    <% if content_for? "#{f_key}_#{i}".to_sym %>
+      <%= yield "#{f_key}_#{i}".to_sym %>
+    <% else %>
+      <%= simple_format bird.attributes[f_key] %>
+    <% end %>
+  </td>
+<%end%>

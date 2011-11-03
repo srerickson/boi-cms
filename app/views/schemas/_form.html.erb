@@ -1,6 +1,9 @@
 <% form_for @schema do |f | %>
 
 
+  <%= render "shared/error_message", :target => @schema %>
+
+
   <p>  
   <%= f.label :name, :class=>"span-4" %>
   <% if @schema.new_record? %>
@@ -18,9 +21,11 @@
   <label class="span-4">Fields</label>
   <div class="span-12 last">
     <ul id="schema_fields">
-    <% f.fields_for :schema_fields do |sf| %>
-      <%= render "schema_fields/nested_form", :f => sf %>
-    <% end %>
+
+    <%= f.text_area :field_descriptions %>
+    <%# f.fields_for :schema_fields do |sf| %>
+      <%# render "schema_fields/nested_form", :f => sf %>
+    <%# end %>
 
     </ul>
     <%# link_to_add_fields 'Add a Field', f, :schema_fields %>
@@ -34,13 +39,24 @@
 <% end %>
 
 <script>
-$(function() {
-    $( "#schema_fields" ).sortable({
-      placeholder: "ui-state-highlight",
-      update: function(e, ui){
-        update_list_positions("#schema_fields li")
-      }
-    });
-    $( "#schema_fields" ).disableSelection();
+//$(function() {
+//    $( "#schema_fields" ).sortable({
+//      placeholder: "ui-state-highlight",
+//      update: function(e, ui){
+//        update_list_positions("#schema_fields li")
+//      }
+//    });
+//    $( "#schema_fields" ).disableSelection();
+//  });
+</script>
+<script>
+  var editor = CodeMirror.fromTextArea(document.getElementById("schema_field_descriptions"), {
+    lineNumbers: true,
+    matchBrackets: true,
+    indentWithTabs: false,
+    tabMode: "indent",
+    json: true
   });
 </script>
+
+

@@ -15,7 +15,11 @@
   <%= stylesheet_link_tag "jquery-theme/jquery-ui-1.8.14.custom",
                           "vendor/flexigrid", 
                           "vendor/uploadify",
-                          "site"  %>
+                          "vendor/codemirror/codemirror",
+                          "vendor/codemirror/default",
+                          #"vendor/codemirror/docs",
+                          "site"
+  %>
 
   <%= javascript_include_tag  "vendor/jquery-1.5.1.min",
                               "vendor/jquery-ui-1.8.14.custom.min",
@@ -23,6 +27,8 @@
                               "vendor/flexigrid", 
                               "vendor/swfobject",
                               "vendor/jquery.uploadify.v2.1.4.min",
+                              "vendor/codemirror/codemirror",
+                              "vendor/codemirror/javascript",
                               "application" %>
   <%= csrf_meta_tag %>
 

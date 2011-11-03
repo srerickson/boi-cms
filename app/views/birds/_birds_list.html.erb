@@ -2,18 +2,17 @@
 
 <table id="birds_table">
   <thead>
-    <% @query.view_fields.each_with_index do |f_name, i|%>
-      <th><%= @bird_schema.field_name_with_key(f_name) %></th>
+    <% @query.view_fields.each_with_index do |f_key, i|%>
+      <th><%= @bird_schema.field_name_with_key(f_key) %></th>
     <%end%>
   </thead>
   <tbody>
     <% birds_list.each_with_index do |bird, i| %>
       <tr data-bird_id="<%=bird.id%>" class="bird_list_row">
-        <% @query.view_fields.each_with_index do |f_name, i|%>
-          <td><%= render :inline => sanitize_for_view(bird.list_value_of_key(f_name)), :locals => {:obj => bird }%></td>
-        <%end%>  
+        <%= render :partial => "bird", :locals => { :bird => bird, :i => i,
+                                                    :only_fields => @query.view_fields} %>
       </tr>
-  <% end %>
+    <% end %>
   </tbody>
 </table>
 

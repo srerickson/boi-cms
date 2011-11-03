@@ -1,6 +1,30 @@
+<% content_for "logo".to_sym do %>
+  <%= image_tag @bird.logo.asset.url("sq50") unless @bird.logo.nil? %>
+<% end %>
+
+<% content_for "habitat_id".to_sym do %>
+  <%= @bird.habitat.name unless @bird.habitat.nil? %>
+<% end %>
+
+
+<% content_for "genus_type_id".to_sym do %>
+  <%= @bird.genus_type.name unless @bird.genus_type.nil? %>
+<% end %>
+
+<% content_for "op_org_style_id".to_sym do %>
+  <%= @bird.op_org_style.name unless @bird.op_org_style.nil? %>
+<% end %>
+
+<% content_for "fse_org_style_id".to_sym do %>
+  <%= @bird.fse_org_style.name unless @bird.fse_org_style.nil? %>
+<% end %>
+
+
 <% content_for :images do %>
   <%= render :partial => "assets/assets", :locals => {:assets => @bird.images} %>
 <% end%>
+
+
 
 
 <div class="span-24 append-bottom">  
@@ -13,35 +37,40 @@
 </div>
 
 
-<% @bird_schema.schema_fields.each do |field|%>
+<% @bird_schema.sections.each do |section|%>
 
-  <% if field.first_in_group? and !field.group_name.blank? %>
-    <div class="span-24 prepend-top last bird_field_group_name">
-      <h3><%= field.group_name %></h3>
-      <hr/>
+  <div class="span-24 prepend-top last bird_field_group_name">
+    <h3><%= section["short_name"] %></h3>
+    <hr/>
+    <div>
+      <%= section["description"]%>
     </div>
-  <% end %>
+  </div>
 
+  <% continue if section["fields"].nil? %>
+
+  <% section["fields"].each do |field| %>
   <div class="bird_row span-24 last">
     <div class="span-5">
       <div class="bird_field_name ui-state-default">
-        <%= field.short_name %>
-        <% if field.short_name != field.description %>
+        <%= field["short_name"] %>
+        <% if field["short_name"] != field["description"] and not field["description"].blank? %>
           <a href="#" onclick="$(this).next().toggle(200);return false;" style="float:right" ><span class="ui-icon ui-icon-triangle-1-s"></a>
           <div class="bird_field_description hidden" style="display:none">
-            <%= field.description %>
+            <%= field["description"] %>
           </div>
         <% end %>
       </div>
     </div>
     <div class="span-15 bird_field_value last">
-      <% if field.form_type == "Built-In" %>
-        <%= yield field.key.to_sym if content_for?(field.key.to_sym)%>
+      <% if content_for?(field["key"].to_sym) %>
+        <%= yield field["key"].to_sym %>
       <% else %>
-        <%= render :inline => @bird.value_of_key(field.key), :locals => {:obj => @bird}  %>
+        <%= simple_format @bird.attributes[field["key"]]  %>
       <% end %>
     </div>
   </div>
+  <%  end %>
 
 <% end %>
 
