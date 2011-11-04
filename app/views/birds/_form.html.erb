@@ -34,47 +34,48 @@
     <%= f.select :genus_type_id, GenusType.find(:all, :order => "name ASC").collect{|g|[g.name, g.id] }, :include_blank => true%>
   <% end %>
 
+  <% content_for :Metadata do %>
+    <!-- skip -->
+    &nbsp;
+  <% end %>
 
 
   <%= render "shared/error_message", :target => @bird %>
 
 
   <% @bird_schema.sections.each do |section|%>
-
-    <div class="span-24 prepend-top last bird_field_group_name">
-      <h3><%= section["short_name"] %></h3>
-      <hr/>
-    </div>
-
-    <% continue if section["fields"].nil? %>
-
-    <% section["fields"].each do |field| %>
-
-      <div class="bird_row span-24">
-        <div class="span-5">
-          <div class="bird_field_name ui-state-default">
-            <%= field["short_name"] %>
-            <% if field["short_name"] != field["description"] and not field["description"].blank? %>
-              <a href="#" onclick="$(this).next().toggle(200);return false;" style="float:right" ><span class="ui-icon ui-icon-triangle-1-s"></a>
-              <div class="bird_field_description hide">
-                <%= field["description"] %>
-              </div>
+    <% if content_for?(section["short_name"].to_sym) %>    
+      <%= yield section["short_name"].to_sym %>
+    <% else %>
+      <div class="span-24 prepend-top last bird_field_group_name">
+        <h3><%= section["short_name"] %></h3>
+        <hr/>
+      </div>
+      <% continue if section["fields"].nil? %>
+      <% section["fields"].each do |field| %>
+        <div class="bird_row span-24">
+          <div class="span-5">
+            <div class="bird_field_name ui-state-default">
+              <%= field["short_name"] %>
+              <% if field["short_name"] != field["description"] and not field["description"].blank? %>
+                <a href="#" onclick="$(this).next().toggle(200);return false;" style="float:right" ><span class="ui-icon ui-icon-triangle-1-s"></a>
+                <div class="bird_field_description hide">
+                  <%= field["description"] %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="span-15 bird_field_value last">
+            <% if content_for?(field["key"].to_sym) %>
+              <%= yield field["key"].to_sym %> 
+            <% else %>
+              <%= f.text_area field["key"].to_sym %>
             <% end %>
           </div>
         </div>
-        <div class="span-15 bird_field_value last">
-
-          <% if content_for?(field["key"].to_sym) %>
-            <%= yield field["key"].to_sym %> 
-          <% else %>
-            <%= f.text_area field["key"].to_sym %>
-          <% end %>
-        </div>
-      </div>
-
+      <% end %>
     <% end %>
-
-  <% end %>
+  <% end %> 
 
 
   <%= f.submit "Save" %>

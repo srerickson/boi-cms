@@ -23,6 +23,18 @@
   <%= render :partial => "assets/assets", :locals => {:assets => @bird.images} %>
 <% end%>
 
+<% content_for :created_at do %>
+  <%= @bird.created_at.to_formatted_s(:long) unless @bird.created_at.nil?  %>
+<% end%>
+
+<% content_for :updated_at do %>
+  <%= @bird.updated_at.to_formatted_s(:long) unless @bird.updated_at.nil?  %>
+<% end%>
+
+<% content_for :updated_by do %>
+  <%= @bird.updated_by.email unless @bird.updated_by.nil?  %>
+<% end%>
+
 
 <div class="span-24 append-bottom">  
   <div class="bird_title span-21"><%= @bird.name %></div>
