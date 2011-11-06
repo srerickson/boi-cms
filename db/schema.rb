@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(:version => 20111103171255) do
     t.integer  "comments_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "updated_by"
+    t.integer  "updated_by_id"
     t.text     "summary"
   end
 

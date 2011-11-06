@@ -19,7 +19,9 @@
   <%= bird.fse_org_style.name unless bird.fse_org_style.nil? %>
 <% end %>
 
-
+<% content_for "update_by_#{i}".to_sym do %>
+  <%= bird.updated_by.email unless bird.updated_by.nil? %>
+<% end %>
 
 <% only_fields.each do |f_key|%>
   <td>

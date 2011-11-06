@@ -37,6 +37,7 @@
   <% content_for :Metadata do %>
     <!-- skip -->
     &nbsp;
+    <%= f.hidden_field :updated_by_id, :value => current_user.id %>
   <% end %>
 
 
@@ -50,6 +51,9 @@
       <div class="span-24 prepend-top last bird_field_group_name">
         <h3><%= section["short_name"] %></h3>
         <hr/>
+        <div>
+          <%= section["description"]%>
+        </div>
       </div>
       <% continue if section["fields"].nil? %>
       <% section["fields"].each do |field| %>
