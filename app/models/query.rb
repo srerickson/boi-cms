@@ -30,7 +30,7 @@ class Query < ActiveRecord::Base
     self.op_org_styles ||= {}
     self.org_styles ||= {}
     self.view_fields ||= ["logo","name","genus_type_id","habitat_id"]
-    self.hide_fields = self.schema.schema_fields.map{|f| f.key }.delete_if{|f| self.view_fields.include?(f)}
+    self.hide_fields = self.schema.data_fields.map{|f| f["key"] }.delete_if{|f| self.view_fields.include?(f)}
     self.order_by ||= "name"
   end
 

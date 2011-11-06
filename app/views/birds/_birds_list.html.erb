@@ -2,7 +2,7 @@
 
 <table id="birds_table">
   <thead>
-    <% @query.view_fields.each_with_index do |f_key, i|%>
+    <% @query.view_fields.each do |f_key|%>
       <th><%= @bird_schema.field_name_with_key(f_key) %></th>
     <%end%>
   </thead>

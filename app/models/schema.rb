@@ -23,9 +23,15 @@ class Schema < ActiveRecord::Base
     return ActiveSupport::JSON.decode(field_descriptions)
   end
 
+  def data_fields
+    find_leaf_fields(self.fields)
+  end
+
   def sections
     self.fields
   end
+
+
 
 protected
 
@@ -40,6 +46,19 @@ protected
     end
     return nil;
   end
+
+  def find_leaf_fields(field_list)
+    ret = []
+    field_list.each do |f|
+      if f.has_key?("key") and (f["fields"].nil? or f["fields"].empty?) 
+        ret << f
+      elsif f.has_key?("fields")
+        ret.concat(find_leaf_fields(f["fields"]))
+      end
+    end
+    return ret;
+  end
+
 
   def json_format
     begin
