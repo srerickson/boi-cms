@@ -1,5 +1,4 @@
-require 'thinking_sphinx/deploy/capistrano'
-
+#require 'thinking_sphinx/deploy/capistrano'
 
 set :application, "boi-cms"
 set :repository,  "git://github.com/srerickson/boi-cms.git"
@@ -12,16 +11,16 @@ set :keep_releases, 5
 
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-set :user, "www-data"
+set :user, "capistrano"
 set :use_sudo, false
 
-role :web, "thatwhich.net"                          # Your HTTP server, Apache/etc
-role :app, "thatwhich.net"                          # This may be the same as your `Web` server
-role :db,  "thatwhich.net", :primary => true # This is where Rails migrations will run
+role :web, "limn.it"                          # Your HTTP server, Apache/etc
+role :app, "limn.it"                          # This may be the same as your `Web` server
+role :db,  "limn.it", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 
 
-before "deploy:update_code", "deploy:stop_thinking_sphinx"
+#before "deploy:update_code", "deploy:stop_thinking_sphinx"
 
 after "deploy", "deploy:bundle_gems"
 after "deploy:bundle_gems", "deploy:restart"
