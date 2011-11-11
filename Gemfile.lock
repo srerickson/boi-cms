@@ -126,7 +126,6 @@ DEPENDENCIES
   jquery-rails (>= 1.0.12)
   mysql2
   paperclip
-  rack (= 1.2.3)
   rails (= 3.0.9)
   taps
   thinking-sphinx

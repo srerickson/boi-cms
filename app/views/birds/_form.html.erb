@@ -34,6 +34,14 @@
     <%= f.select :genus_type_id, GenusType.find(:all, :order => "name ASC").collect{|g|[g.name, g.id] }, :include_blank => true%>
   <% end %>
 
+  <% content_for :fse_org_style_id do %>
+    <%= f.select :fse_org_style_id, OrgStyle.find(:all, :order => "name ASC").collect{|g|[g.name, g.id] }, :include_blank => true%>
+  <% end %>
+
+  <% content_for :op_org_style_id do %>
+    <%= f.select :op_org_style_id, OrgStyle.find(:all, :order => "name ASC").collect{|g|[g.name, g.id] }, :include_blank => true%>
+  <% end %>
+
   <% content_for :Metadata do %>
     <%= f.hidden_field :updated_by_id, :value => current_user.id %>
   <% end %>
