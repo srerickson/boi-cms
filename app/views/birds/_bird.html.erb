@@ -19,6 +19,14 @@
   <%= bird.fse_org_style.name unless bird.fse_org_style.nil? %>
 <% end %>
 
+<% content_for "created_at_#{i}".to_sym do %>
+  <%= bird.created_at.to_formatted_s(:long) unless bird.created_at.nil?  %>
+<% end%>
+
+<% content_for "updated_at_#{i}".to_sym do %>
+  <%= bird.updated_at.to_formatted_s(:long) unless bird.updated_at.nil?  %>
+<% end%>
+
 <% content_for "updated_by_#{i}".to_sym do %>
   <%= bird.updated_by.email unless bird.updated_by.nil? %>
 <% end %>
