@@ -34,7 +34,11 @@
     <div id="media_files">
       <%= render :partial => "assets/form", :locals => {:assets => @bird.images, :attached_to => @bird } %>
     </div>
-    <div id="media_file_uploader"></div>
+    <% if @bird.new_record? %>
+      <em>You will be able to add images after saving</em>
+    <% else %>
+      <div id="media_file_uploader"></div>
+    <% end%>
   <% end %>
 
   <% content_for :habitat_id do %>
