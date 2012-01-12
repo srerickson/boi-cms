@@ -47,17 +47,8 @@ class BirdsController < ApplicationController
     if @bird.save
       flash[:notice] = "Added a new Bird!"
       respond_with(@bird, :location => birds_url)
-    else
+    else  
       respond_with(@bird)
-#      respond_with do |f|
-#        f.html {
-#          if request.xhr?
-#            render :partial => "form", :layout => false;
-#          else
-#            respond_with(@bird)
-#          end
-#        }
-#      end
     end
   end
 

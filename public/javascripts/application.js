@@ -22,6 +22,13 @@ $(document).ready(function(){
       autoOpen: false,
   });
 
+
+  //set_bird_form_bindings();
+
+
+
+
+
 })
 
 
