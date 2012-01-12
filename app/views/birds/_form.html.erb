@@ -1,6 +1,7 @@
 
 
-<% 
+<%
+  # use this to turn off remote/ajax form submission - important for bird creation.
   if !defined?(with_xhr) or with_xhr == true 
     do_remote = true
   else
