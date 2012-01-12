@@ -1,4 +1,14 @@
-<% form_for @bird, :html => {:multipart => true, :'data-type' => 'html' }, :remote=>true do |f| %>
+
+
+<% 
+  if !defined?(with_xhr) or with_xhr == true 
+    do_remote = true
+  else
+    do_remote = false
+  end
+%>
+
+<% form_for @bird, :html => {:multipart => true, :'data-type' => 'html' }, :remote=>do_remote do |f| %>
 
 
   <% content_for :name do %>
@@ -105,11 +115,13 @@
   </p>
 </div>
 
+
+<% if do_remote  %>
 <script>
   // this is here so that it runs even after each XHR request
   set_bird_form_bindings();
 </script>
-
+<% end %>
 
 
 
