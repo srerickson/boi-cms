@@ -4,7 +4,10 @@ class BirdsController < ApplicationController
   def index
     self.get_query 
     @birds = @query.results  
-    respond_with(@birds)
+    respond_with do |f|
+      f.html { render :index }
+      f.json { render :json => @birds }
+    end
   end
 
 
@@ -24,11 +27,6 @@ class BirdsController < ApplicationController
   end
 
   def flexi
-    ret = {}
-    ret[:total] = 1
-    ret[:rows] = []
-    ret[:rows] << {:id=>1, :cell => {:name => "Seth", :image => "<img src='/images/dodo-small.png'/>"}}
-    respond_with(ret)
   end
 
   def show

@@ -74,4 +74,18 @@ class Bird < ActiveRecord::Base
     has updated_at
   end  
 
+
+  def as_json(options={})
+     super(options.merge(
+      :include => {
+        :logo => {:methods => [:original_url]},
+        :images => {:methods => [:original_url]},
+        :habitat => {},
+        :genus_type => {},
+        :fse_org_style => {},
+        :op_org_style => {}
+      }
+    ))
+  end
+
 end
