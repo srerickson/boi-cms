@@ -1,0 +1,119 @@
+<html>
+	<head>
+		<script type="text/javascript" src="/javascripts/vendor/d3/d3.js"></script>
+		<script type="text/javascript" src="/javascripts/vendor/d3/d3.layout.js"></script>
+	</head>
+
+<style>
+
+ .chart {
+ 	margin:15px;
+ 	background-color:#EEE;
+ 	float:left;
+ 	padding:10px;
+ 	font: 10px sans-serif;
+ }
+
+.chart .title {
+	font-weight:bold;
+}
+
+.chart div.row_title {
+   padding: 3px;
+   margin: 1px;
+   width:100px;
+   float:left;
+ }
+
+.chart div.bar {
+   background-color: steelblue;
+   text-align: right;
+   padding: 3px;
+   margin: 1px;
+   color: white;
+   float:right;
+ }
+ 
+ .chart div.row {
+ 	clear:both;
+ 	margin:2px;
+ 	height:20px;
+ }
+ 
+
+</style>
+	
+	<body>
+
+	
+		<script type="text/javascript">
+
+
+
+
+d3.json("/birds.json",function(json){
+	var counts = get_classes(json)
+	
+	for (chart_name in counts){
+		var data = []
+		for (i in counts[chart_name]){
+			data.push([i,counts[chart_name][i]]);
+		}
+		console.log(data)
+
+		var chart = d3.select("body").append("div")
+			.attr("id",chart_name)
+    		.attr("class", "chart");
+    		
+    	chart.append("div").attr("class","title").text(chart_name)
+
+    	chart.selectAll("div").data(data).enter().append("div")
+    		.attr("class","row")
+    		
+    	chart.selectAll("div.row").append("div")
+    		.attr("class","row_title")
+    		.text(function(d) { return d[0]; })
+    	
+    	chart.selectAll("div.row").append("div")
+    		.attr("class","bar")
+    		.style("width", function(d) { return d[1] * 10 + "px"; })
+    		.text(function(d) { return d[1]; })
+    		
+    	
+	}
+	
+	var fse_chart = d3.select()
+	
+})
+
+
+function get_classes(json){
+	var attrs = ['fse_org_style','op_org_style','habitat','genus_type']
+	var counts = {}	
+	for (var i =0;i<json.length; i++){
+		var node = json[i]
+		for(var j=0;j<attrs.length; j++){
+			var attr = attrs[j]
+			var val = node.bird[attr]
+			if(val !== undefined){
+				if (counts[attr] == undefined) {
+					counts[attr] = {}
+				} else {
+					if (counts[attr][val.name] == undefined) {
+						counts[attr][val.name] = 1;
+					} else {
+						counts[attr][val.name]++; 
+					}
+				}
+			}
+		}
+	}
+	console.log(counts)
+	return counts;
+}
+
+		
+		</script>
+	
+	</body>
+</html>
