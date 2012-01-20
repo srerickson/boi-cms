@@ -3,6 +3,11 @@ class HabitatsController < ApplicationController
 
   def index
     @habitats = Habitat.find(:all, :order => :name)
+    respond_with do |f|
+      f.html { render :index }
+      f.json { render :json => @habitats }
+    end
+
   end
 
   def show

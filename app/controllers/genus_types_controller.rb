@@ -3,6 +3,11 @@ class GenusTypesController < ApplicationController
 
   def index
     @genus_types = GenusType.find(:all, :order => :name)
+    respond_with do |f|
+      f.html { render :index }
+      f.json { render :json => @genus_types }
+    end
+
   end
 
   def show

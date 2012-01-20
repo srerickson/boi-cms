@@ -3,6 +3,11 @@ class OrgStylesController < ApplicationController
 
   def index
     @org_styles = OrgStyle.find(:all, :order => :name)
+    respond_with do |f|
+      f.html { render :index }
+      f.json { render :json => @org_styles }
+    end
+
   end
 
   def show
