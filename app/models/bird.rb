@@ -88,4 +88,8 @@ class Bird < ActiveRecord::Base
     ))
   end
 
+  def path
+    return "/birds/#{id}"
+  end
+
 end

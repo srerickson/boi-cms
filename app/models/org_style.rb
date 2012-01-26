@@ -14,7 +14,8 @@ class OrgStyle < ActiveRecord::Base
             :genus_type => {},
             :fse_org_style => {},
             :op_org_style => {}
-          }
+          },
+          :methods => [:path]
         },
         :op_birds => {
           :include => {
@@ -24,7 +25,8 @@ class OrgStyle < ActiveRecord::Base
             :genus_type => {},
             :fse_org_style => {},
             :op_org_style => {}
-          }
+          },
+          :methods => [:path]
         }
       }
     ))

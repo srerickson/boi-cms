@@ -11,7 +11,8 @@ class Habitat < ActiveRecord::Base
             :genus_type => {},
             :fse_org_style => {},
             :op_org_style => {}
-          }
+          },
+          :methods => [:path]
         }
       }
     ))
