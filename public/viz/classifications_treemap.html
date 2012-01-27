@@ -14,6 +14,10 @@
   position: absolute;
   text-indent: 2px;
 }
+
+.cell a {
+	color:black;
+}
 </style>
 	
 	<body>
@@ -47,10 +51,15 @@ d3.json("/genus_types.json", function(json_raw) {
 	div.data([json]).selectAll("div")
 	  .data(treemap.nodes)
 	.enter().append("div")
-	  .attr("class", "cell")
+	  .attr("class", function(d) { return d.children ? "cell" : "cell bird" })
 	  .style("background", function(d) { return d.children ? color(d.name) : null; })
 	  .call(cell)
-	  .text(function(d) { return d.children ? null : d.name; });
+
+	d3.selectAll(".bird")
+		.append("a")
+		.attr("href", function(d) { return d.path; })
+		.text(function(d) { return d.name; });
+
 	
 	d3.select("#size").on("click", function() {
 	div.selectAll("div")

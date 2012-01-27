@@ -73,3 +73,10 @@ function bird_count(bird){
   }
   return count;
 }
+
+
+urlize = function(string) {
+  return string.toLowerCase().replace(/[^A-Za-z0-9]/g, "_")
+}
+
+
