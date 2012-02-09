@@ -80,7 +80,7 @@ function setup_uploadify(){
   var csrf_param = $('meta[name=csrf-param]').attr('content');
   
   // Now associate the data in the config, encoding the data safely
-  uploadify_script_data[csrf_param] = encodeURI(csrf_token);
+  uploadify_script_data[csrf_param] = encodeURI(encodeURIComponent(csrf_token));
 
   // Associate the session information
   // .... see views/layouts/application.html.erb
