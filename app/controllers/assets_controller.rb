@@ -45,10 +45,12 @@ class AssetsController < ApplicationController
       if @asset.save
         flash[:notice] = "Successfully created asset."
         respond_to do |format|
-          format.html {
-            render :partial => "assets/form", :locals => {:assets => @bird.images, :attached_to => @bird }
+          format.all {
+            render :partial => "assets/form.html.erb", :locals => {:assets => @bird.images, :attached_to => @bird }
           }
-          format.json {render :json => { :result => 'success', :asset => asset_path(@asset) } }
+          #format.json {
+          #  render :json => { :result => 'success', :asset => asset_path(@asset) } 
+          #}
         end
       else
         render :action => 'new'
@@ -59,7 +61,6 @@ class AssetsController < ApplicationController
   # PUT /assets/1.xml
   def update
     @asset = Asset.find(params[:id])
-
     respond_to do |format|
       if @asset.update_attributes(params[:asset])
         format.html { redirect_to(@asset, :notice => 'Asset was successfully updated.') }

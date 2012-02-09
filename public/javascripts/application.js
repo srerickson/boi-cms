@@ -96,6 +96,9 @@ function setup_uploadify(){
         onComplete: function(event, queueID, fileObj, response, data) {
           $("#media_files").html(response);
           $("#media_files").animate({scrollTop: $("#media_files").attr("scrollHeight") - $('#media_files').height()}, 150);
+        },
+        onError: function(ev,ID,fileObj,errorObj){
+          console.log(errorObj)
         }
   });
 
