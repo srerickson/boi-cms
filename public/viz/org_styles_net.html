@@ -31,7 +31,7 @@ a {
 }
 
 #table {
-  width:1000px;
+  width:800px;
   margin:20px auto;
   padding:10px;
 }
@@ -47,7 +47,7 @@ circle {
 }
 line {
   stroke:tan;
-  opacity:0.3;
+  opacity:.3;
   cursor:pointer;
 }
 
@@ -69,7 +69,7 @@ text.title {
 .active {
   stroke:gray;
   fill:gray;
-  opacity:0.8;
+  opacity:1;
 }
 
 .clicked {
@@ -86,6 +86,15 @@ div.bird div {
   padding:5px;
 }
 
+div.bird img {
+  float:right;
+  padding:10px;
+}
+
+div.bird {
+  clear:both;
+  border-top:1px solid lightgray;
+}
 
 
 </style>
@@ -123,7 +132,7 @@ d3.json("/org_styles.json", function(json_raw) {
     .enter().append("circle")
     .attr("cx",function(d){ return d.klass == "op" ? 500 : 0})
     .attr("cy",function(d){ return d.index*20})
-    .attr("r",function(d){return Math.sqrt((2*d.size)/3.14)+2})
+    .attr("r",function(d){return d.size*.7})
     .attr("id",function(d){return d.klass+"_node_"+urlize(d.name)})
     .attr("class",function(d){ return d.klass+"_"+urlize(d.name)})
 
@@ -155,7 +164,7 @@ d3.json("/org_styles.json", function(json_raw) {
       .attr("y1",function(d){ return d3.select("#"+d.source.replace("fse_","fse_node_")).attr("cy")})
       .attr("x2",function(d){ return d3.select("#"+d.target.replace("op_","op_node_")).attr("cx")})
       .attr("y2",function(d){ return d3.select("#"+d.target.replace("op_","op_node_")).attr("cy")})
-      .attr("stroke-width",function(d){ return d.weight*2})
+      .attr("stroke-width",function(d){ return d.weight*1.5})
       .attr("onmouseover",function(d){return "fade_up_line('"+d.source+"','"+d.target+"')"})
       .attr("onmouseout",function(d){return "fade_out_line('"+d.source+"','"+d.target+"')"})
       .attr("onclick",function(d){ return "show_birds(["+d.birds.join(",")+"])"})
@@ -293,6 +302,7 @@ function show_birds(list){
         "<a href='/birds/"+bird.id+"'>"+
         bird.name+
         "</a>"+
+          (bird.logo == undefined ? "" : "<img src='"+bird.logo.original_url+"' width='80'/>")+
         "<div>"+
           (bird.summary == undefined ? "" : bird.summary) +
         "</div>"+
