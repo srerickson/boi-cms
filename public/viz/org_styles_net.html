@@ -1,65 +1,89 @@
 <html>
 	<head>
-                <script type="text/javascript" src="/javascripts/vendor/jquery-1.5.1.min.js"></script>
+		<script type="text/javascript" src="/javascripts/vendor/jquery-1.5.1.min.js"></script>
 		<script type="text/javascript" src="/javascripts/viz.js"></script>
 		<script type="text/javascript" src="/javascripts/vendor/d3/d3.js"></script>
 		<script type="text/javascript" src="/javascripts/vendor/d3/d3.layout.js"></script>
+		
+		<link href="/stylesheets/site.css" media="screen" rel="stylesheet" type="text/css" />
+		
 	</head>
-
 <style>
-i
+
 body {
-  width:100%;
+  font: 11px sans-serif;
+  padding:0px;
+  marin:0px;
+  color:#444;
+}
+
+a {
+  text-decoration:underline;
+  color:#000;
 }
 
 #chart {
   width:1000px;
-  height:400;
-  margin: 50px auto;
+  height:300px;
+  margin: 50px auto 0 auto;
+  border:1px solid lightgray;
+
 }
 
 #table {
-  width:800px;
+  width:1000px;
   margin:20px auto;
+  padding:10px;
 }
 
 
 svg {
-  font: 10px sans-serif;
+  font-size:11px;
 }
 
 circle {
   fill: tan;
   stroke: tan;
 }
-
-.active {
-  stroke:black;
-}
-
-circle.active {
-  fill:black;
-}
-
 line {
   stroke:tan;
   opacity:0.3;
+  cursor:pointer;
 }
 
-line.active {
+
+text.label {
+  fill:#777;
+  cursor:pointer;
+  stroke:none;
+}
+text.active, text.clicked {
+  fill:black;
+}
+
+
+text.title {
+  font-size:15px;
+}
+
+.active {
+  stroke:gray;
+  fill:gray;
+  opacity:0.8;
+}
+
+.clicked {
+  stroke:#444;
+  fill:#444;
   opacity:1;
 }
 
-text.label {
-  fill:#888;
-  cursor:pointer;
+div.bird{
+  margin-bottom:10px;
 }
-text.active.label {
-  stroke:none;
-  fill:#000;
-}
-text.title {
-  font-size:15px;
+
+div.bird div {
+  padding:5px;
 }
 
 
@@ -84,8 +108,13 @@ var diagonal = d3.svg.diagonal()
 var vis = d3.select("#chart").append("svg")
     .attr("width", w)
     .attr("height", h)
+    //.attr("onclick", "d3.selectAll('.clicked').classed('clicked',false)")
   .append("g")
-    .attr("transform", "translate(250,40)");
+    .attr("transform", "translate(248,40)");
+
+
+
+var all_birds = []
 
 d3.json("/org_styles.json", function(json_raw) {
   var nodes = parse_org_style_nodes(json_raw)
@@ -98,7 +127,6 @@ d3.json("/org_styles.json", function(json_raw) {
     .attr("id",function(d){return d.klass+"_node_"+urlize(d.name)})
     .attr("class",function(d){ return d.klass+"_"+urlize(d.name)})
 
-
   vis.selectAll("text").data(nodes)
     .enter().append("text")
     .attr("x",function(d){ return d.klass == "op" ? 505 : -5})
@@ -106,8 +134,9 @@ d3.json("/org_styles.json", function(json_raw) {
     .attr("id", function(d){ return d.klass+"_text_"+urlize(d.name) })
     .attr("class",function(d){ return d.klass+"_"+urlize(d.name)+" label"})
     .attr("text-anchor", function(d){ return d.klass == "fse" ? "end" : "start"})
-    .attr("onmouseover",function(d){return "fade_up('"+d.klass+"_"+urlize(d.name)+"')"})
-    .attr("onmouseout",function(d){return "fade_out('"+d.klass+"_"+urlize(d.name)+"')"})
+    .attr("onmouseover",function(d){return "fade_up_node('"+d.klass+"_"+urlize(d.name)+"')"})
+    .attr("onmouseout",function(d){return "fade_out_node('"+d.klass+"_"+urlize(d.name)+"')"})
+    .attr("onclick", function(d){ return "show_birds(["+d.birds.join(",")+"])"})
     .text(function(d){return d.name})
 
 
@@ -115,14 +144,22 @@ d3.json("/org_styles.json", function(json_raw) {
   d3.json("/birds.json", function(json_raw) {
     var links = parse_org_style_links(json_raw)
 
+    //for(var i=0;i<links.length;++i){
+    //  all_birds[links[i].bird.id] = links[i].bird
+    //}
+    all_birds = parse_bird_list(json_raw);
+
     vis.selectAll("line").data(links)
       .enter().append("line")
-      .attr("x1",function(d){ return d3.select("#"+d.source).attr("cx")})
-      .attr("y1",function(d){ return d3.select("#"+d.source).attr("cy")})
-      .attr("x2",function(d){ return d3.select("#"+d.target).attr("cx")})
-      .attr("y2",function(d){ return d3.select("#"+d.target).attr("cy")})
-      .attr("stroke-width",function(d){return d.weight*1.5})
-      .attr("class", function(d){return d.source.replace("node_","") +" "+d.target.replace("node_","")})
+      .attr("x1",function(d){ return d3.select("#"+d.source.replace("fse_","fse_node_")).attr("cx")})
+      .attr("y1",function(d){ return d3.select("#"+d.source.replace("fse_","fse_node_")).attr("cy")})
+      .attr("x2",function(d){ return d3.select("#"+d.target.replace("op_","op_node_")).attr("cx")})
+      .attr("y2",function(d){ return d3.select("#"+d.target.replace("op_","op_node_")).attr("cy")})
+      .attr("stroke-width",function(d){ return d.weight*2})
+      .attr("onmouseover",function(d){return "fade_up_line('"+d.source+"','"+d.target+"')"})
+      .attr("onmouseout",function(d){return "fade_out_line('"+d.source+"','"+d.target+"')"})
+      .attr("onclick",function(d){ return "show_birds(["+d.birds.join(",")+"])"})
+      .attr("class", function(d){ return d.source+" "+d.target})
   });
 
   vis.append("text")
@@ -130,32 +167,39 @@ d3.json("/org_styles.json", function(json_raw) {
     .attr("y",-20)
     .attr("class","title")
     .attr("text-anchor", "end")
-    .text("FSE Org Styles")
-
+    .text("Formal Social Enterprise")
 
   vis.append("text")
     .attr("x",505)
     .attr("y",-20)
     .attr("class","title")
     .attr("text-anchor","start")
-    .text("OP Org Styles")
-
-
-
+    .text("Organized Public")
+    
+    
+    
 });
 
 function parse_org_style_nodes(json){
   var ret = []
   for(var i=0;i<json.length;++i){
+    var org = json[i].org_style
     var new_fse = {klass:"fse",index:i}
     var new_op = {klass:"op",index:i}
 
-    new_fse.name = json[i].org_style.name
-    new_fse.size = json[i].org_style.fse_birds.length
+    new_fse.name = org.name
+    new_fse.size = org.fse_birds.length
+    new_fse.birds = []
+    for(var j=0;j<org.fse_birds.length;++j){
+      new_fse.birds.push(org.fse_birds[j].id)  
+    }
 
-    new_op.name = json[i].org_style.name
-    new_op.size = json[i].org_style.op_birds.length
-
+    new_op.name = org.name
+    new_op.size = org.op_birds.length
+    new_op.birds = []
+    for(var j=0;j<org.op_birds.length;++j){
+      new_op.birds.push(org.op_birds[j].id)  
+    }
     ret.push(new_fse)
     ret.push(new_op)
   }
@@ -173,25 +217,33 @@ function parse_org_style_links(json){
     var fse = urlize(bird.fse_org_style.name)
     var op = urlize(bird.op_org_style.name)
     if (tmp[fse+op] == undefined){ 
-      var new_link = {
-        source: "fse_node_"+urlize(bird.fse_org_style.name),
-        target: "op_node_"+urlize(bird.op_org_style.name),
+      tmp[fse+op] = {
+        source: "fse_"+urlize(bird.fse_org_style.name),
+        target: "op_"+urlize(bird.op_org_style.name),
+        birds: [bird.id],
         weight: 1
       }
-      tmp[fse+op] = new_link
     } else {
       tmp[fse+op].weight += 1
+      tmp[fse+op].birds.push(bird.id)
     }
   }
   for(node in tmp){
     ret.push(tmp[node])
   } 
-  console.log(ret)
   return ret;
 }
 
+function parse_bird_list(json){
+  var ret = []
+  for(var i=0;i<json.length;++i){
+    var id = json[i].bird.id
+    ret[id] = json[i].bird
+  }
+  return ret;
+}
 
-function fade_up(id){
+function fade_up_node(id){
   d3.selectAll("line."+id).each(function(d){
     var classes = d3.select(this).attr("class").split(" ")
     for(var i=0;i<classes.length;++i ){
@@ -203,7 +255,7 @@ function fade_up(id){
 
 }
 
-function fade_out(id){
+function fade_out_node(id){
   d3.selectAll("line."+id).each(function(d){
     var classes = d3.select(this).attr("class").split(" ")
     for(var i=0;i<classes.length;++i ){
@@ -213,7 +265,41 @@ function fade_out(id){
   }).classed("active",false)
 }
 
-function click()
+function fade_up_line(source,target){
+  d3.select("line."+source+"."+target).classed("active",true)
+  d3.selectAll("circle."+source).classed("active",true)
+  d3.selectAll("text."+source).classed("active",true)
+  d3.selectAll("circle."+target).classed("active",true)
+  d3.selectAll("text."+target).classed("active",true)
+}
+
+function fade_out_line(source,target){
+  d3.select("line."+source+"."+target).classed("active",false)
+  d3.selectAll("circle."+source).classed("active",false)
+  d3.selectAll("text."+source).classed("active",false)
+  d3.selectAll("circle."+target).classed("active",false)
+  d3.selectAll("text."+target).classed("active",false)
+}
+
+function show_birds(list){
+  d3.selectAll(".clicked").classed("clicked",false)
+  d3.selectAll(".active").classed("clicked",true)
+  
+  var birds = []
+  for(var i=0;i<list.length;++i){
+    var bird = all_birds[list[i]]
+    birds.push(
+      "<div class='bird'>"+
+        "<a href='/birds/"+bird.id+"'>"+
+        bird.name+
+        "</a>"+
+        "<div>"+
+          (bird.summary == undefined ? "" : bird.summary) +
+        "</div>"+
+      "</div>")
+  }
+  $("#table").html(birds.join(""))
+}
 
 
 
