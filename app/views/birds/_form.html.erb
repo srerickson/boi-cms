@@ -57,7 +57,16 @@
     <%= f.select :op_org_style_id, OrgStyle.find(:all, :order => "name ASC").collect{|g|[g.name, g.id] }, :include_blank => true%>
   <% end %>
 
-  <% content_for :Metadata do %>
+  <% content_for :created_at do %>
+    &nbsp;<%= @bird.created_at.to_formatted_s(:long) unless @bird.created_at.nil?  %>
+  <% end %>
+
+  <% content_for :updated_at do %>
+    &nbsp;<%= @bird.updated_at.to_formatted_s(:long) unless @bird.updated_at.nil?  %>
+  <% end %>
+
+  <% content_for :updated_by do %>
+    <%= @bird.updated_by.email unless @bird.updated_by.nil? %>
     <%= f.hidden_field :updated_by_id, :value => current_user.id %>
   <% end %>
 

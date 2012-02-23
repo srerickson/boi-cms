@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111103171255) do
+ActiveRecord::Schema.define(:version => 20120223182343) do
 
   create_table "assets", :force => true do |t|
     t.string   "asset_file_name"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20111103171255) do
     t.datetime "updated_at"
     t.integer  "updated_by_id"
     t.text     "summary"
+    t.text     "birder_credits"
   end
 
   create_table "comments", :force => true do |t|
