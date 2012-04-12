@@ -44,6 +44,5 @@ module Boi
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   end
 end
