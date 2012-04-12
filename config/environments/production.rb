@@ -49,6 +49,6 @@ Boi::Application.configure do
 
 
   config.action_mailer.default_url_options = { :host => 'birds.recursivepublic.net' }
-  config.action_mailer.smtp_settings[:enable_starttls_auto] = false
+  ActionMailer::Base.smtp_settings[:enable_starttls_auto] = false
 
 end

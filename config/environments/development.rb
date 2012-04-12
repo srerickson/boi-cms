@@ -25,5 +25,8 @@ Boi::Application.configure do
 
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  ActionMailer::Base.smtp_settings[:enable_starttls_auto] = false
+
+
 end
 
